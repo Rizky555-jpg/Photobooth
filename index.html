@@ -4,49 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#F7F1E9">
-<title>AFTERGLOW — Your Personal Photo Studio</title>
+<title>AFTERGLOW — Photo Booth Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* ============ RESET & BASE ============ */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --cream:#F7F1E9;
-  --warm-white:#FFFAF4;
-  --coffee:#49372D;
-  --terracotta:#A65F43;
-  --beige:#DCCBBC;
+  --cream:#F7F1E9; --warm-white:#FFFAF4; --coffee:#49372D;
+  --terracotta:#A65F43; --beige:#DCCBBC;
   --shadow-sm:0 2px 8px rgba(73,55,45,.08);
   --shadow-md:0 8px 24px rgba(73,55,45,.12);
   --shadow-lg:0 20px 60px rgba(73,55,45,.18);
-  --radius:16px;
-  --radius-sm:10px;
+  --radius:16px; --radius-sm:10px;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 html{scroll-behavior:smooth}
 body{
   font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-  background:var(--cream);
-  color:var(--coffee);
-  line-height:1.6;
-  overflow-x:hidden;
+  background:var(--cream); color:var(--coffee); line-height:1.6;
+  overflow-x:hidden; min-height:100vh;
   -webkit-font-smoothing:antialiased;
-  min-height:100vh;
 }
 body.darkroom{
-  --cream:#1a1613;
-  --warm-white:#241f1a;
-  --coffee:#e8ddd2;
-  --beige:#3a322b;
-  background:#1a1613;
+  --cream:#1a1613; --warm-white:#241f1a; --coffee:#e8ddd2;
+  --beige:#3a322b; background:#1a1613;
 }
 img{max-width:100%;display:block}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
-input,textarea,select{font-family:inherit;font-size:16px}
+input,select{font-family:inherit;font-size:16px}
 a{color:inherit;text-decoration:none}
 
-/* Film grain overlay */
+/* Film grain */
 .grain{
   position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.04;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -76,31 +65,28 @@ a{color:inherit;text-decoration:none}
 @keyframes introIn{to{opacity:1;transform:translateY(0)}}
 @keyframes lineGrow{to{transform:scaleX(1)}}
 
-/* ============ NAV ============ */
+/* Nav */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:900;
-  background:rgba(247,241,233,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(247,241,233,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid rgba(73,55,45,.08);
-  transition:transform .4s var(--ease);
 }
-body.darkroom nav{background:rgba(26,22,19,.85);border-bottom-color:rgba(232,221,210,.1)}
+body.darkroom nav{background:rgba(26,22,19,.9);border-bottom-color:rgba(232,221,210,.1)}
 .nav-inner{
   max-width:1200px;margin:0 auto;padding:.9rem 1.2rem;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
 }
 .nav-logo{
   font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;letter-spacing:.1em;
-  display:flex;align-items:center;gap:.4rem;
 }
 .nav-logo span{color:var(--terracotta)}
 .nav-links{display:flex;gap:.2rem;align-items:center}
 .nav-links button{
   padding:.5rem .9rem;border-radius:8px;font-size:.82rem;font-weight:500;
-  letter-spacing:.03em;color:var(--coffee);transition:all .25s var(--ease);
+  transition:all .25s var(--ease);
 }
 .nav-links button:hover{background:rgba(166,95,67,.1);color:var(--terracotta)}
 .nav-links button.active{background:var(--coffee);color:var(--cream)}
-body.darkroom .nav-links button.active{background:var(--coffee);color:var(--cream)}
 .nav-actions{display:flex;gap:.5rem;align-items:center}
 .icon-btn{
   width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -112,8 +98,7 @@ body.darkroom .icon-btn{background:rgba(232,221,210,.08)}
   .nav-links{
     position:fixed;bottom:0;left:0;right:0;top:auto;
     background:var(--warm-white);border-top:1px solid rgba(73,55,45,.08);
-    padding:.5rem;justify-content:space-around;box-shadow:0 -4px 20px rgba(73,55,45,.06);
-    z-index:950;
+    padding:.5rem;justify-content:space-around;z-index:950;
   }
   body.darkroom .nav-links{background:var(--warm-white);border-top-color:rgba(232,221,210,.08)}
   .nav-links button{flex-direction:column;font-size:.65rem;padding:.4rem .6rem;gap:2px}
@@ -121,7 +106,7 @@ body.darkroom .icon-btn{background:rgba(232,221,210,.08)}
   body{padding-bottom:64px}
 }
 
-/* ============ LAYOUT ============ */
+/* Pages */
 .page{display:none;animation:pageIn .5s var(--ease)}
 .page.active{display:block}
 @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -136,18 +121,17 @@ body.darkroom .icon-btn{background:rgba(232,221,210,.08)}
   color:var(--terracotta);font-weight:600;margin-bottom:.8rem;display:block;
 }
 
-/* ============ BUTTONS ============ */
+/* Buttons */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
   padding:.85rem 1.8rem;border-radius:100px;font-weight:600;font-size:.9rem;
-  letter-spacing:.02em;transition:all .3s var(--ease);white-space:nowrap;
-  position:relative;overflow:hidden;
+  transition:all .3s var(--ease);white-space:nowrap;
 }
 .btn-primary{background:var(--coffee);color:var(--cream)}
 body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 .btn-primary:hover{background:var(--terracotta);transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .btn-outline{background:transparent;border:1.5px solid var(--coffee);color:var(--coffee)}
-.btn-outline:hover{background:var(--coffee);color:var(--cream);transform:translateY(-2px)}
+.btn-outline:hover{background:var(--coffee);color:var(--cream)}
 .btn-accent{background:var(--terracotta);color:var(--warm-white)}
 .btn-accent:hover{background:var(--coffee);transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .btn-ghost{background:rgba(73,55,45,.06);color:var(--coffee)}
@@ -156,10 +140,8 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
 .btn:active{transform:scale(.97)}
 
-/* ============ HERO ============ */
-.hero{
-  padding:8rem 0 4rem;position:relative;overflow:hidden;
-}
+/* Hero */
+.hero{padding:8rem 0 4rem;position:relative;overflow:hidden}
 .hero::before{
   content:'';position:absolute;top:-20%;right:-10%;width:500px;height:500px;
   background:radial-gradient(circle,rgba(166,95,67,.12),transparent 70%);
@@ -176,7 +158,7 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
   line-height:1.02;font-weight:700;letter-spacing:-.02em;margin:.5rem 0 1.5rem;
 }
 .hero-title em{font-style:italic;color:var(--terracotta)}
-.hero-desc{font-size:1.05rem;color:var(--coffee);opacity:.8;max-width:480px;margin-bottom:2rem}
+.hero-desc{font-size:1.05rem;opacity:.8;max-width:480px;margin-bottom:2rem}
 .hero-cta{display:flex;gap:.8rem;flex-wrap:wrap}
 .hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
 .polaroid-stack{position:relative;width:100%;max-width:340px;aspect-ratio:3/4}
@@ -213,79 +195,87 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
   .polaroid-stack{max-width:260px}
 }
 
-/* ============ FEATURES STRIP ============ */
 .features-strip{
   display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
-  padding:2rem 0;border-top:1px solid rgba(73,55,45,.08);border-bottom:1px solid rgba(73,55,45,.08);
-  margin:3rem 0;
+  padding:2rem 0;border-top:1px solid rgba(73,55,45,.08);
+  border-bottom:1px solid rgba(73,55,45,.08);margin:3rem 0;
 }
 .feat{text-align:center;padding:.5rem}
 .feat-icon{font-size:1.6rem;margin-bottom:.4rem}
 .feat-title{font-size:.82rem;font-weight:600;letter-spacing:.05em}
 .feat-desc{font-size:.72rem;opacity:.6;margin-top:.2rem}
-@media(max-width:720px){
-  .features-strip{grid-template-columns:repeat(2,1fr);gap:.5rem}
-}
+@media(max-width:720px){.features-strip{grid-template-columns:repeat(2,1fr);gap:.5rem}}
 
-/* ============ FILTER PREVIEW GRID ============ */
-.home-filters{padding:3rem 0}
-.filter-preview-row{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.8rem;margin-top:1.5rem;
-}
-.fp-card{
-  aspect-ratio:1;border-radius:var(--radius-sm);overflow:hidden;position:relative;
-  background:linear-gradient(135deg,var(--beige),var(--terracotta));
-  cursor:pointer;transition:transform .3s var(--ease);
-}
-.fp-card:hover{transform:scale(1.04)}
-.fp-card span{
-  position:absolute;bottom:0;left:0;right:0;padding:.5rem;
-  background:linear-gradient(transparent,rgba(73,55,45,.85));color:#fff;
-  font-size:.68rem;font-weight:600;letter-spacing:.03em;
-}
-.fp-card img{width:100%;height:100%;object-fit:cover}
-
-/* ============ PHOTO BOOTH PAGE ============ */
+/* Booth page */
 .booth-wrap{padding:5.5rem 0 3rem}
 .booth-grid{display:grid;grid-template-columns:1fr 380px;gap:1.5rem;align-items:start}
 @media(max-width:960px){.booth-grid{grid-template-columns:1fr}}
 
+/* CAMERA STAGE — RASIO AKURAT */
 .camera-stage{
   background:var(--warm-white);border-radius:var(--radius);overflow:hidden;
   box-shadow:var(--shadow-md);position:relative;
 }
 .camera-viewport{
-  position:relative;width:100%;aspect-ratio:4/3;background:#1a1613;overflow:hidden;
+  position:relative;width:100%;background:#0f0d0b;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
 }
+.camera-viewport[data-ratio="4:3"]{aspect-ratio:4/3}
+.camera-viewport[data-ratio="3:4"]{aspect-ratio:3/4;max-height:70vh}
+.camera-viewport[data-ratio="1:1"]{aspect-ratio:1/1}
+.camera-viewport[data-ratio="4:5"]{aspect-ratio:4/5;max-height:70vh}
+
+.camera-inner{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 #video{
-  width:100%;height:100%;object-fit:cover;transform-origin:center;
-  transition:filter .3s;
+  width:100%;height:100%;object-fit:cover;
+  transition:filter .25s var(--ease);
+  display:block;
 }
 #video.mirrored{transform:scaleX(-1)}
+
+/* Live filter overlay - vignette/grain/dust */
+.live-overlay{
+  position:absolute;inset:0;pointer-events:none;
+  transition:background .3s,opacity .3s;
+}
+.live-overlay.grain::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity:.15;mix-blend-mode:overlay;
+}
+.live-overlay.vignette::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.55) 100%);
+}
+
 .camera-placeholder{
-  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   color:var(--beige);text-align:center;padding:2rem;gap:1rem;
+  background:#0f0d0b;
 }
 .camera-placeholder .big-icon{font-size:3rem;opacity:.5}
 .camera-placeholder p{font-size:.85rem;max-width:280px;opacity:.7}
+.camera-placeholder.hidden{display:none}
 
 .cam-status{
   position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:.5rem;
   background:rgba(0,0,0,.5);backdrop-filter:blur(8px);padding:.4rem .7rem;
   border-radius:100px;color:#fff;font-size:.7rem;font-weight:600;letter-spacing:.05em;
+  z-index:5;
 }
 .cam-dot{width:8px;height:8px;border-radius:50%;background:#999;transition:all .3s}
 .cam-dot.on{background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
 .cam-toolbar{
-  position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:.5rem;
-  padding:0 12px;flex-wrap:wrap;
+  position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;
+  gap:.5rem;padding:0 12px;z-index:5;flex-wrap:wrap;
 }
 .cam-tool{
-  width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);
-  color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.05rem;
-  transition:all .25s var(--ease);
+  width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);
+  backdrop-filter:blur(8px);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;transition:all .25s var(--ease);
 }
 .cam-tool:hover{background:rgba(166,95,67,.85);transform:scale(1.1)}
 .cam-tool.active{background:var(--terracotta)}
@@ -293,7 +283,7 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 /* Countdown & flash */
 .countdown-overlay{
   position:absolute;inset:0;display:none;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.3);z-index:20;pointer-events:none;
+  background:rgba(0,0,0,.35);z-index:20;pointer-events:none;
 }
 .countdown-overlay.show{display:flex}
 .countdown-num{
@@ -308,13 +298,41 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 .flash-effect.fire{animation:flashFire .5s ease-out}
 @keyframes flashFire{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
 
-.shutter-transition{
-  position:fixed;inset:0;z-index:9997;pointer-events:none;background:#000;opacity:0;
-}
+.shutter-transition{position:fixed;inset:0;z-index:9997;pointer-events:none;background:#000;opacity:0}
 .shutter-transition.fire{animation:shutterFire .5s ease-out}
 @keyframes shutterFire{0%{opacity:0}40%{opacity:1}100%{opacity:0}}
 
-/* Sidebar panel */
+/* CAMERA CONTROLS BAR */
+.camera-controls{padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.8rem}
+.ratio-row{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap}
+.ratio-btn{
+  padding:.4rem .9rem;border-radius:100px;font-size:.72rem;font-weight:600;
+  background:rgba(73,55,45,.06);transition:all .2s var(--ease);
+}
+.ratio-btn.active{background:var(--coffee);color:var(--cream)}
+.ratio-btn:hover:not(.active){background:rgba(166,95,67,.15)}
+
+.countdown-row{display:flex;gap:.4rem;justify-content:center;align-items:center}
+.countdown-row label{font-size:.72rem;font-weight:600;letter-spacing:.03em;opacity:.7}
+.countdown-row select{
+  padding:.35rem .7rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);
+  background:var(--warm-white);font-size:.75rem;
+}
+
+/* SESSION BUTTON */
+.session-btn{
+  width:100%;padding:1rem;border-radius:14px;
+  background:linear-gradient(135deg,var(--terracotta),#8a4a32);
+  color:var(--warm-white);font-weight:700;font-size:1rem;letter-spacing:.05em;
+  text-transform:uppercase;transition:all .3s var(--ease);
+  box-shadow:0 8px 24px rgba(166,95,67,.3);
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+}
+.session-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(166,95,67,.4)}
+.session-btn:active{transform:scale(.98)}
+.session-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+
+/* Side panel */
 .side-panel{
   background:var(--warm-white);border-radius:var(--radius);box-shadow:var(--shadow-md);
   overflow:hidden;position:sticky;top:80px;
@@ -323,7 +341,7 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 .panel-tabs{display:flex;border-bottom:1px solid rgba(73,55,45,.08);overflow-x:auto;scrollbar-width:none}
 .panel-tabs::-webkit-scrollbar{display:none}
 .panel-tab{
-  flex:1;min-width:60px;padding:.85rem .5rem;font-size:.72rem;font-weight:600;
+  flex:1;min-width:70px;padding:.85rem .5rem;font-size:.72rem;font-weight:600;
   letter-spacing:.05em;text-transform:uppercase;color:var(--coffee);opacity:.5;
   transition:all .25s var(--ease);white-space:nowrap;
 }
@@ -334,20 +352,27 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 .panel-view.active{display:block;animation:fadeIn .3s var(--ease)}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* Mode selector */
-.mode-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
-.mode-card{
-  padding:.9rem;border-radius:var(--radius-sm);background:rgba(73,55,45,.04);
-  border:1.5px solid transparent;transition:all .25s var(--ease);text-align:left;
+/* Template picker */
+.template-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+.tpl-card{
+  background:var(--cream);border-radius:10px;padding:.5rem;
+  border:2px solid transparent;transition:all .25s var(--ease);
+  text-align:left;display:flex;flex-direction:column;gap:.3rem;
 }
-.mode-card:hover{background:rgba(166,95,67,.08)}
-.mode-card.active{border-color:var(--terracotta);background:rgba(166,95,67,.1)}
-.mode-card .mc-icon{font-size:1.2rem;margin-bottom:.3rem}
-.mode-card .mc-title{font-size:.8rem;font-weight:600;line-height:1.2}
-.mode-card .mc-desc{font-size:.68rem;opacity:.6;margin-top:.15rem}
+.tpl-card:hover{border-color:rgba(166,95,67,.4);transform:translateY(-2px)}
+.tpl-card.active{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(166,95,67,.15)}
+.tpl-thumb{
+  width:100%;aspect-ratio:2/3;border-radius:6px;overflow:hidden;
+  background:#ddd;position:relative;display:flex;align-items:center;justify-content:center;
+}
+.tpl-thumb canvas{max-width:100%;max-height:100%;display:block}
+.tpl-name{font-size:.72rem;font-weight:600;text-align:center;line-height:1.2}
+.tpl-count{font-size:.62rem;opacity:.6;text-align:center}
 
-/* Filter gallery */
-.filter-cats{display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.8rem;scrollbar-width:none;margin-bottom:.8rem}
+/* Filter grid */
+.filter-cats{
+  display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.8rem;scrollbar-width:none;margin-bottom:.8rem;
+}
 .filter-cats::-webkit-scrollbar{display:none}
 .fcat{
   padding:.35rem .8rem;border-radius:100px;font-size:.7rem;font-weight:600;
@@ -355,6 +380,7 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 }
 .fcat:hover{background:rgba(166,95,67,.15)}
 .fcat.active{background:var(--coffee);color:var(--cream)}
+
 .filter-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
 .filter-item{
   aspect-ratio:1;border-radius:8px;overflow:hidden;position:relative;
@@ -363,24 +389,24 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 }
 .filter-item:hover{transform:scale(1.03)}
 .filter-item.active{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(166,95,67,.2)}
-.filter-item canvas,.filter-item .fi-preview{
-  width:100%;height:100%;object-fit:cover;display:block;background:#e8ddd2;
+.filter-item .fi-preview{
+  width:100%;height:100%;object-fit:cover;display:block;position:relative;
+  overflow:hidden;background:linear-gradient(135deg,#c9a37a,#6b4a2f);
 }
+.filter-item .fi-preview canvas{width:100%;height:100%;display:block}
 .filter-item .fi-name{
   position:absolute;bottom:0;left:0;right:0;padding:.3rem .4rem;
   font-size:.6rem;font-weight:600;text-align:center;
   background:linear-gradient(transparent,rgba(73,55,45,.9));color:#fff;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.filter-item .fi-fav{
-  position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;
-  background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;
-  font-size:.65rem;z-index:2;transition:transform .2s;
+.filter-item .fi-badge{
+  position:absolute;top:4px;left:4px;padding:.15rem .4rem;border-radius:100px;
+  font-size:.5rem;font-weight:700;letter-spacing:.05em;
+  background:var(--terracotta);color:#fff;
 }
-.filter-item .fi-fav:hover{transform:scale(1.2)}
-.filter-item .fi-fav.on{color:var(--terracotta)}
 
-/* Controls */
+/* Adjust / frame panel */
 .ctrl-group{margin-bottom:1rem}
 .ctrl-label{
   display:flex;justify-content:space-between;font-size:.72rem;font-weight:600;
@@ -389,113 +415,53 @@ body.darkroom .btn-primary{background:var(--terracotta);color:var(--warm-white)}
 .ctrl-label span:last-child{color:var(--terracotta);font-family:monospace}
 input[type="range"]{
   -webkit-appearance:none;width:100%;height:4px;border-radius:100px;
-  background:rgba(73,55,45,.15);outline:none;transition:background .2s;
+  background:rgba(73,55,45,.15);outline:none;
 }
 input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
   background:var(--terracotta);cursor:pointer;border:2px solid var(--warm-white);
-  box-shadow:var(--shadow-sm);transition:transform .2s;
+  box-shadow:var(--shadow-sm);
 }
-input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.15)}
 input[type="range"]::-moz-range-thumb{
   width:18px;height:18px;border-radius:50%;background:var(--terracotta);
-  cursor:pointer;border:2px solid var(--warm-white);box-shadow:var(--shadow-sm);
+  cursor:pointer;border:2px solid var(--warm-white);
 }
 
-/* Frame / stickers */
-.frame-grid,.sticker-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
-.frame-item,.sticker-item{
-  aspect-ratio:1;border-radius:8px;background:rgba(73,55,45,.05);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:.2rem;padding:.4rem;transition:all .2s var(--ease);
-  border:1.5px solid transparent;cursor:pointer;
+/* Result screen */
+.result-screen{
+  position:fixed;inset:0;background:rgba(15,13,11,.95);z-index:9100;
+  display:none;align-items:center;justify-content:center;padding:1rem;
+  backdrop-filter:blur(10px);
+  animation:fadeIn .4s ease;
 }
-.frame-item:hover,.sticker-item:hover{background:rgba(166,95,67,.1);transform:translateY(-2px)}
-.frame-item.active{border-color:var(--terracotta);background:rgba(166,95,67,.12)}
-.frame-item .fc-preview{width:100%;height:60%;border-radius:4px;overflow:hidden;background:#ddd}
-.frame-item .fc-name,.sticker-item .st-name{font-size:.6rem;font-weight:600;text-align:center;line-height:1.1}
-.sticker-item .st-emoji{font-size:1.4rem}
-
-/* Color pickers */
-.swatch-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem}
-.swatch{
-  width:32px;height:32px;border-radius:50%;cursor:pointer;
-  border:2px solid transparent;transition:transform .2s;position:relative;
+.result-screen.show{display:flex}
+.result-inner{
+  background:var(--warm-white);border-radius:var(--radius);max-width:500px;width:100%;
+  max-height:95vh;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:var(--shadow-lg);
 }
-.swatch:hover{transform:scale(1.15)}
-.swatch.active{border-color:var(--coffee);box-shadow:0 0 0 2px var(--warm-white) inset}
-.swatch::after{
-  content:'';position:absolute;inset:0;border-radius:50%;
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
+.result-head{
+  padding:1rem 1.2rem;border-bottom:1px solid rgba(73,55,45,.08);
+  display:flex;justify-content:space-between;align-items:center;
 }
-
-/* Action buttons */
-.action-btns{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
-.action-btns .btn{width:100%}
-.capture-btn{
-  width:72px;height:72px;border-radius:50%;background:var(--warm-white);
-  border:4px solid var(--coffee);display:flex;align-items:center;justify-content:center;
-  margin:1rem auto 0;transition:all .3s var(--ease);position:relative;
-}
-.capture-btn::after{
-  content:'';width:52px;height:52px;border-radius:50%;background:var(--coffee);
-  transition:all .3s var(--ease);
-}
-.capture-btn:hover::after{background:var(--terracotta);transform:scale(.9)}
-.capture-btn:active{transform:scale(.95)}
-.capture-btn:disabled{opacity:.3;cursor:not-allowed}
-
-/* ============ EDITOR ============ */
-.editor-wrap{padding:5.5rem 0 3rem}
-.editor-grid{display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start}
-@media(max-width:960px){.editor-grid{grid-template-columns:1fr}}
-.canvas-stage{
-  background:var(--warm-white);border-radius:var(--radius);padding:1.5rem;
-  box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;
-  min-height:400px;position:relative;overflow:hidden;
-}
-#editorCanvas{max-width:100%;max-height:70vh;border-radius:6px;box-shadow:var(--shadow-sm);background:#e8ddd2;touch-action:none}
-.editor-toolbar{
-  display:flex;gap:.4rem;flex-wrap:wrap;margin-top:1rem;justify-content:center;
-}
-.et-btn{
-  padding:.5rem .9rem;border-radius:8px;font-size:.75rem;font-weight:600;
-  background:rgba(73,55,45,.06);transition:all .2s var(--ease);
-  display:flex;align-items:center;gap:.3rem;
-}
-.et-btn:hover{background:var(--terracotta);color:var(--warm-white)}
-.et-btn.active{background:var(--terracotta);color:var(--warm-white)}
-
-/* Accessory layer */
-.accessory-layer{position:absolute;inset:0;pointer-events:none}
-.acc-item{
-  position:absolute;pointer-events:auto;cursor:move;user-select:none;
-  touch-action:none;transition:box-shadow .2s;
-}
-.acc-item.selected{box-shadow:0 0 0 2px var(--terracotta);border-radius:4px}
-.acc-item .acc-content{width:100%;height:100%;display:block}
-.acc-controls{
-  position:absolute;top:-32px;left:50%;transform:translateX(-50%);
-  display:none;gap:3px;background:var(--coffee);border-radius:6px;padding:3px;
-}
-.acc-item.selected .acc-controls{display:flex}
-.acc-controls button{
-  width:24px;height:24px;border-radius:4px;color:#fff;font-size:.7rem;
+.result-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700}
+.result-preview{
+  flex:1;overflow-y:auto;padding:1.2rem;background:var(--cream);
   display:flex;align-items:center;justify-content:center;
+  min-height:200px;
 }
-.acc-controls button:hover{background:var(--terracotta)}
-.acc-resize{
-  position:absolute;bottom:-8px;right:-8px;width:18px;height:18px;border-radius:50%;
-  background:var(--terracotta);border:2px solid #fff;cursor:nwse-resize;
-  display:none;
+.result-preview img{max-width:100%;max-height:60vh;border-radius:4px;box-shadow:var(--shadow-md)}
+.result-actions{
+  padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;
 }
-.acc-item.selected .acc-resize{display:block}
+.result-actions .btn{width:100%}
+.result-actions .full{grid-column:1/-1}
 
-/* ============ GALLERY ============ */
+/* Gallery */
 .gallery-wrap{padding:5.5rem 0 3rem;min-height:100vh}
-.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-top:2rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-top:2rem}
 .gallery-item{
-  aspect-ratio:3/4;border-radius:var(--radius-sm);overflow:hidden;position:relative;
+  aspect-ratio:2/3;border-radius:var(--radius-sm);overflow:hidden;position:relative;
   box-shadow:var(--shadow-sm);cursor:pointer;transition:all .3s var(--ease);
   background:var(--warm-white);
 }
@@ -508,62 +474,28 @@ input[type="range"]::-moz-range-thumb{
 .gi-actions button{
   width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.6);
   color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;
-  backdrop-filter:blur(4px);
 }
 .gi-actions button:hover{background:var(--terracotta)}
 .gallery-item .gi-date{
   position:absolute;bottom:0;left:0;right:0;padding:.5rem;font-size:.65rem;
   background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;
-  opacity:0;transition:opacity .2s;
 }
-.gallery-item:hover .gi-date{opacity:1}
-
-.empty-state{
-  text-align:center;padding:5rem 1rem;max-width:420px;margin:0 auto;
-}
+.empty-state{text-align:center;padding:5rem 1rem;max-width:420px;margin:0 auto}
 .empty-icon{font-size:4rem;opacity:.3;margin-bottom:1rem}
 .empty-title{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:.5rem}
 .empty-desc{font-size:.85rem;opacity:.6;margin-bottom:1.5rem}
 
-/* ============ ABOUT ============ */
+/* About */
 .about-wrap{padding:5.5rem 0 3rem}
 .about-hero{text-align:center;max-width:700px;margin:0 auto 3rem}
 .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 @media(max-width:720px){.about-grid{grid-template-columns:1fr}}
-.about-card{
-  background:var(--warm-white);padding:2rem 1.5rem;border-radius:var(--radius);
-  box-shadow:var(--shadow-sm);
-}
-.about-card .ac-num{
-  font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--terracotta);
-  line-height:1;margin-bottom:.5rem;
-}
+.about-card{background:var(--warm-white);padding:2rem 1.5rem;border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.about-card .ac-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--terracotta);line-height:1;margin-bottom:.5rem}
 .about-card h3{font-size:1.05rem;margin-bottom:.5rem}
 .about-card p{font-size:.85rem;opacity:.7}
 
-/* ============ MODAL ============ */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(73,55,45,.5);backdrop-filter:blur(8px);
-  z-index:9000;display:none;align-items:center;justify-content:center;padding:1rem;
-  animation:fadeIn .25s ease;
-}
-.modal-overlay.show{display:flex}
-.modal{
-  background:var(--warm-white);border-radius:var(--radius);max-width:560px;width:100%;
-  max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);
-  animation:modalIn .35s var(--ease);
-}
-@keyframes modalIn{from{transform:scale(.95) translateY(10px);opacity:0}to{transform:scale(1);opacity:1}}
-.modal-head{
-  padding:1.2rem 1.5rem;border-bottom:1px solid rgba(73,55,45,.08);
-  display:flex;justify-content:space-between;align-items:center;
-}
-.modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700}
-.modal-body{padding:1.5rem}
-.modal-body img{width:100%;border-radius:var(--radius-sm)}
-.modal-foot{padding:1rem 1.5rem;border-top:1px solid rgba(73,55,45,.08);display:flex;gap:.5rem;flex-wrap:wrap}
-
-/* ============ TOAST ============ */
+/* Toast */
 .toast-wrap{
   position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
   z-index:9500;display:flex;flex-direction:column;gap:.5rem;align-items:center;
@@ -572,17 +504,17 @@ input[type="range"]::-moz-range-thumb{
 .toast{
   background:var(--coffee);color:var(--cream);padding:.75rem 1.2rem;border-radius:100px;
   font-size:.82rem;font-weight:500;box-shadow:var(--shadow-md);
-  animation:toastIn .4s var(--ease);display:flex;align-items:center;gap:.5rem;
+  animation:toastIn .4s var(--ease);
 }
 .toast.success{background:#2d5a3d}
 .toast.error{background:#8b3a3a}
 @keyframes toastIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 
-/* ============ LOADING ============ */
+/* Loading */
 .loader{
   width:40px;height:40px;border:3px solid rgba(73,55,45,.15);
   border-top-color:var(--terracotta);border-radius:50%;
-  animation:spin .8s linear infinite;margin:2rem auto;
+  animation:spin .8s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-overlay{
@@ -592,7 +524,7 @@ input[type="range"]::-moz-range-thumb{
 .loading-overlay.show{display:flex}
 .loading-text{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;opacity:.6}
 
-/* ============ PRINT STYLES ============ */
+/* Print */
 @media print{
   body *{visibility:hidden!important}
   #printArea,#printArea *{visibility:visible!important}
@@ -607,10 +539,30 @@ input[type="range"]::-moz-range-thumb{
 #printArea{display:none}
 #printArea.active{display:block}
 
-/* Footer */
-footer{
-  background:var(--coffee);color:var(--cream);padding:3rem 0 2rem;margin-top:4rem;
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(73,55,45,.5);backdrop-filter:blur(8px);
+  z-index:9000;display:none;align-items:center;justify-content:center;padding:1rem;
+  animation:fadeIn .25s ease;
 }
+.modal-overlay.show{display:flex}
+.modal{
+  background:var(--warm-white);border-radius:var(--radius);max-width:560px;width:100%;
+  max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);
+  animation:modalIn .35s var(--ease);
+}
+@keyframes modalIn{from{transform:scale(.95) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal-head{
+  padding:1.2rem 1.5rem;border-bottom:1px solid rgba(73,55,45,.08);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700}
+.modal-body{padding:1.5rem}
+.modal-body img{width:100%;border-radius:var(--radius-sm)}
+.modal-foot{padding:1rem 1.5rem;border-top:1px solid rgba(73,55,45,.08);display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* Footer */
+footer{background:var(--coffee);color:var(--cream);padding:3rem 0 2rem;margin-top:4rem}
 body.darkroom footer{background:#0f0d0b}
 .footer-inner{max-width:1200px;margin:0 auto;padding:0 1.2rem;text-align:center}
 .footer-logo{font-family:'Playfair Display',serif;font-size:1.5rem;letter-spacing:.15em;margin-bottom:.5rem}
@@ -619,57 +571,49 @@ body.darkroom footer{background:#0f0d0b}
 .footer-links button:hover{color:var(--terracotta)}
 .footer-copy{font-size:.7rem;opacity:.4;margin-top:1.5rem}
 
-/* Utilities */
 .hidden{display:none!important}
-.text-center{text-align:center}
-.mt-1{margin-top:.5rem}.mt-2{margin-top:1rem}.mt-3{margin-top:1.5rem}
+.mt-1{margin-top:.5rem}.mt-2{margin-top:1rem}
 .flex{display:flex}.gap-2{gap:.5rem}.items-center{align-items:center}
 .divider{height:1px;background:rgba(73,55,45,.1);margin:1rem 0}
-.badge{
-  display:inline-block;padding:.2rem .6rem;border-radius:100px;font-size:.65rem;
-  font-weight:600;letter-spacing:.05em;background:rgba(166,95,67,.15);color:var(--terracotta);
-}
 </style>
 </head>
 <body>
 
 <div class="grain"></div>
 
-<!-- INTRO -->
 <div id="intro">
   <div class="intro-logo">AFTERGLOW</div>
-  <div class="intro-sub">Your Personal Photo Studio</div>
+  <div class="intro-sub">Photo Booth Studio</div>
   <div class="intro-line"></div>
 </div>
 
-<!-- NAV -->
-<nav id="mainNav">
+<nav>
   <div class="nav-inner">
     <div class="nav-logo">AFTER<span>GLOW</span></div>
     <div class="nav-links">
       <button data-page="home" data-icon="⌂" class="active">Home</button>
-      <button data-page="booth" data-icon="📷">Photo Booth</button>
+      <button data-page="booth" data-icon="📷">Booth</button>
       <button data-page="gallery" data-icon="🖼">Gallery</button>
       <button data-page="about" data-icon="ℹ">About</button>
     </div>
     <div class="nav-actions">
-      <button class="icon-btn" id="darkroomToggle" title="Darkroom Mode">🌙</button>
+      <button class="icon-btn" id="darkroomToggle" title="Darkroom">🌙</button>
     </div>
   </div>
 </nav>
 
-<!-- ============ HOME PAGE ============ -->
+<!-- HOME -->
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="container">
       <div class="hero-grid">
         <div>
           <span class="section-eyebrow">Est. 2025 · Analog Soul</span>
-          <h1 class="hero-title">Your Personal<br><em>Photo Studio</em></h1>
-          <p class="hero-desc">Abadikan momen dengan estetika film vintage. Filter premium, frame artistik, dan aksesoris lucu — semua langsung di browser-mu, tanpa install.</p>
+          <h1 class="hero-title">Real Photo Booth<br><em>Studio in Browser</em></h1>
+          <p class="hero-desc">Live filter real-time, 7 template photo booth asli, hasil cetak siap print. Semua di browser — tanpa install.</p>
           <div class="hero-cta">
-            <button class="btn btn-primary" onclick="showPage('booth')">Mulai Photo Booth →</button>
-            <button class="btn btn-outline" onclick="showPage('gallery')">Lihat Gallery</button>
+            <button class="btn btn-primary" onclick="showPage('booth')">Mulai Session →</button>
+            <button class="btn btn-outline" onclick="showPage('gallery')">My Gallery</button>
           </div>
         </div>
         <div class="hero-visual">
@@ -689,44 +633,38 @@ body.darkroom footer{background:#0f0d0b}
           </div>
         </div>
       </div>
-
       <div class="features-strip">
-        <div class="feat"><div class="feat-icon">🎞️</div><div class="feat-title">40+ Filters</div><div class="feat-desc">Film & aesthetic</div></div>
-        <div class="feat"><div class="feat-icon">🖼️</div><div class="feat-title">12 Frames</div><div class="feat-desc">Premium design</div></div>
-        <div class="feat"><div class="feat-icon">🎨</div><div class="feat-title">Sticker Studio</div><div class="feat-desc">Drag & drop</div></div>
+        <div class="feat"><div class="feat-icon">🎞️</div><div class="feat-title">Live Filters</div><div class="feat-desc">Real-time preview</div></div>
+        <div class="feat"><div class="feat-icon">🖼️</div><div class="feat-title">7 Templates</div><div class="feat-desc">Photo booth asli</div></div>
+        <div class="feat"><div class="feat-icon">📸</div><div class="feat-title">Session Flow</div><div class="feat-desc">Seperti mall booth</div></div>
         <div class="feat"><div class="feat-icon">🖨️</div><div class="feat-title">Print Ready</div><div class="feat-desc">4R & 4×6"</div></div>
-      </div>
-
-      <div class="home-filters">
-        <span class="section-eyebrow">Preview</span>
-        <h2 class="section-title">Signature Filters</h2>
-        <p class="section-sub">Diterapkan langsung ke hasil foto</p>
-        <div class="filter-preview-row" id="homeFilterPreview"></div>
       </div>
     </div>
   </section>
 </div>
 
-<!-- ============ PHOTO BOOTH PAGE ============ -->
+<!-- BOOTH -->
 <div class="page" id="page-booth">
   <div class="booth-wrap container">
     <div style="margin-bottom:1.5rem">
       <span class="section-eyebrow">Studio</span>
-      <h2 class="section-title">Photo Booth</h2>
+      <h2 class="section-title">Photo Booth Session</h2>
     </div>
 
     <div class="booth-grid">
-      <!-- Camera Stage -->
       <div>
         <div class="camera-stage">
-          <div class="camera-viewport" id="cameraViewport">
-            <video id="video" autoplay playsinline muted></video>
+          <div class="camera-viewport" id="cameraViewport" data-ratio="4:3">
+            <div class="camera-inner">
+              <video id="video" autoplay playsinline muted></video>
+              <div class="live-overlay" id="liveOverlay"></div>
+            </div>
             <div class="camera-placeholder" id="camPlaceholder">
               <div class="big-icon">📷</div>
-              <p>Aktifkan kamera untuk memulai sesi foto. Pastikan browser memberikan izin akses kamera.</p>
+              <p>Aktifkan kamera untuk memulai live preview dengan filter real-time.</p>
               <button class="btn btn-accent btn-sm" id="startCamBtn">Aktifkan Kamera</button>
             </div>
-            <div class="cam-status"><span class="cam-dot" id="camDot"></span><span id="camStatusText">Camera Off</span></div>
+            <div class="cam-status"><span class="cam-dot" id="camDot"></span><span id="camStatusText">Off</span></div>
             <div class="countdown-overlay" id="countdownOverlay">
               <div class="countdown-num" id="countdownNum">3</div>
             </div>
@@ -734,58 +672,45 @@ body.darkroom footer{background:#0f0d0b}
             <div class="cam-toolbar" id="camToolbar" style="display:none">
               <button class="cam-tool" id="switchCamBtn" title="Ganti Kamera">🔄</button>
               <button class="cam-tool active" id="mirrorBtn" title="Mirror">🪞</button>
-              <button class="cam-tool active" id="soundBtn" title="Suara Shutter">🔊</button>
-              <button class="cam-tool" id="guideBtn" title="Panduan">❓</button>
+              <button class="cam-tool active" id="soundBtn" title="Suara">🔊</button>
             </div>
           </div>
-
-          <div style="padding:1.2rem;text-align:center">
-            <div class="flex items-center justify-center gap-2 mt-1" style="flex-wrap:wrap">
-              <label style="font-size:.72rem;font-weight:600;letter-spacing:.03em">Countdown</label>
-              <select id="countdownSelect" style="padding:.4rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.8rem">
-                <option value="3">3 detik</option>
-                <option value="5">5 detik</option>
-                <option value="10">10 detik</option>
+          <div class="camera-controls">
+            <div class="ratio-row">
+              <button class="ratio-btn active" data-ratio="4:3">4:3</button>
+              <button class="ratio-btn" data-ratio="3:4">3:4</button>
+              <button class="ratio-btn" data-ratio="1:1">1:1</button>
+              <button class="ratio-btn" data-ratio="4:5">4:5</button>
+            </div>
+            <div class="countdown-row">
+              <label>Countdown</label>
+              <select id="countdownSelect">
+                <option value="3">3s</option>
+                <option value="5" selected>5s</option>
+                <option value="10">10s</option>
               </select>
             </div>
-            <button class="capture-btn" id="captureBtn" disabled title="Ambil Foto"></button>
-            <p style="font-size:.72rem;opacity:.5;margin-top:.5rem" id="captureHint">Aktifkan kamera terlebih dahulu</p>
+            <button class="session-btn" id="startSessionBtn" disabled>
+              🎬 START PHOTO SESSION
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- Side Panel -->
+      <!-- SIDE PANEL -->
       <div class="side-panel">
         <div class="panel-tabs" id="panelTabs">
-          <button class="panel-tab active" data-panel="mode">Mode</button>
+          <button class="panel-tab active" data-panel="template">Template</button>
           <button class="panel-tab" data-panel="filter">Filter</button>
           <button class="panel-tab" data-panel="adjust">Atur</button>
-          <button class="panel-tab" data-panel="frame">Frame</button>
-          <button class="panel-tab" data-panel="accessory">Sticker</button>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="boothPanelBody">
 
-          <!-- MODE -->
-          <div class="panel-view active" data-view="mode">
-            <div class="mode-grid" id="modeGrid">
-              <button class="mode-card active" data-mode="single">
-                <div class="mc-icon">🖼️</div><div class="mc-title">Single</div><div class="mc-desc">1 foto</div>
-              </button>
-              <button class="mode-card" data-mode="strip3">
-                <div class="mc-icon">🎞️</div><div class="mc-title">Strip 3</div><div class="mc-desc">3 foto vertikal</div>
-              </button>
-              <button class="mode-card" data-mode="strip4">
-                <div class="mc-icon">🎞️</div><div class="mc-title">Strip 4</div><div class="mc-desc">4 foto vertikal</div>
-              </button>
-              <button class="mode-card" data-mode="grid">
-                <div class="mc-icon">▦</div><div class="mc-title">Grid 2×2</div><div class="mc-desc">4 foto grid</div>
-              </button>
-            </div>
-            <div class="divider"></div>
-            <p style="font-size:.72rem;opacity:.6;line-height:1.5">Setiap mode memiliki frame otomatis yang akan dihasilkan setelah capture.</p>
+          <div class="panel-view active" data-view="template">
+            <p style="font-size:.72rem;opacity:.65;margin-bottom:.8rem;line-height:1.5">Pilih template — setiap template punya jumlah foto & layout berbeda.</p>
+            <div class="template-grid" id="templateGrid"></div>
           </div>
 
-          <!-- FILTER -->
           <div class="panel-view" data-view="filter">
             <div class="filter-cats" id="filterCats">
               <button class="fcat active" data-cat="all">All</button>
@@ -795,13 +720,11 @@ body.darkroom footer{background:#0f0d0b}
             </div>
             <div class="filter-grid" id="filterGrid"></div>
             <div class="ctrl-group" style="margin-top:1rem">
-              <div class="ctrl-label"><span>Intensitas</span><span id="filterIntVal">100%</span></div>
+              <div class="ctrl-label"><span>Intensitas Filter</span><span id="filterIntVal">100%</span></div>
               <input type="range" id="filterIntensity" min="0" max="100" value="100">
             </div>
-            <button class="btn btn-ghost btn-sm" id="resetFilterBtn" style="width:100%">Reset Filter</button>
           </div>
 
-          <!-- ADJUST -->
           <div class="panel-view" data-view="adjust">
             <div class="ctrl-group">
               <div class="ctrl-label"><span>Brightness</span><span id="brVal">0</span></div>
@@ -819,67 +742,7 @@ body.darkroom footer{background:#0f0d0b}
               <div class="ctrl-label"><span>Warmth</span><span id="waVal">0</span></div>
               <input type="range" id="warmth" min="-100" max="100" value="0">
             </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Grain</span><span id="grVal">0</span></div>
-              <input type="range" id="grain" min="0" max="100" value="0">
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Vignette</span><span id="viVal">0</span></div>
-              <input type="range" id="vignette" min="0" max="100" value="0">
-            </div>
-            <button class="btn btn-ghost btn-sm" id="resetAdjustBtn" style="width:100%">Reset Adjustment</button>
-          </div>
-
-          <!-- FRAME -->
-          <div class="panel-view" data-view="frame">
-            <div class="frame-grid" id="frameGrid"></div>
-            <div class="divider"></div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Warna Frame</span></div>
-              <div class="swatch-row" id="frameColors"></div>
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Caption</span></div>
-              <input type="text" id="frameCaption" placeholder="Best Day Ever" maxlength="30"
-                style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Font Caption</span></div>
-              <select id="captionFont" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-                <option value="'Caveat',cursive">Handwritten (Caveat)</option>
-                <option value="'Playfair Display',serif">Elegant (Playfair)</option>
-                <option value="'DM Sans',sans-serif">Clean (DM Sans)</option>
-              </select>
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Posisi Teks</span></div>
-              <select id="captionPos" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-                <option value="bottom">Bawah</option>
-                <option value="top">Atas</option>
-              </select>
-            </div>
-            <label class="flex items-center gap-2" style="font-size:.8rem;margin-top:.5rem">
-              <input type="checkbox" id="showDate" checked> Tampilkan tanggal
-            </label>
-          </div>
-
-          <!-- ACCESSORY -->
-          <div class="panel-view" data-view="accessory">
-            <div class="filter-cats">
-              <button class="fcat active" data-acc-cat="face">Wajah</button>
-              <button class="fcat" data-acc-cat="cute">Stiker</button>
-              <button class="fcat" data-acc-cat="vintage">Vintage</button>
-              <button class="fcat" data-acc-cat="text">Teks</button>
-            </div>
-            <div class="sticker-grid" id="stickerGrid"></div>
-            <div class="divider"></div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Custom Text</span></div>
-              <input type="text" id="customTextInput" placeholder="Tulis teks..." maxlength="30"
-                style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-              <button class="btn btn-ghost btn-sm" id="addCustomTextBtn" style="width:100%;margin-top:.4rem">+ Tambah Teks</button>
-            </div>
-            <p style="font-size:.68rem;opacity:.55;line-height:1.5;margin-top:.5rem">💡 Aksesoris & teks akan muncul di editor setelah capture. Drag untuk pindah, tombol di atas untuk hapus/putar.</p>
+            <button class="btn btn-ghost btn-sm" id="resetAdjustBtn" style="width:100%">Reset</button>
           </div>
 
         </div>
@@ -888,141 +751,7 @@ body.darkroom footer{background:#0f0d0b}
   </div>
 </div>
 
-<!-- ============ EDITOR PAGE ============ -->
-<div class="page" id="page-editor">
-  <div class="editor-wrap container">
-    <div style="margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
-      <div>
-        <span class="section-eyebrow">Editing</span>
-        <h2 class="section-title">Photo Editor</h2>
-      </div>
-      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-        <button class="btn btn-ghost btn-sm" onclick="showPage('booth')">← Kembali</button>
-        <button class="btn btn-ghost btn-sm" id="editorUndo">↶ Undo</button>
-        <button class="btn btn-ghost btn-sm" id="editorRedo">↷ Redo</button>
-      </div>
-    </div>
-
-    <div class="editor-grid">
-      <div>
-        <div class="canvas-stage" id="canvasStage">
-          <canvas id="editorCanvas"></canvas>
-          <div class="accessory-layer" id="accessoryLayer"></div>
-        </div>
-        <div class="editor-toolbar">
-          <button class="et-btn" data-edit="rotate">↻ Rotate</button>
-          <button class="et-btn" data-edit="flip">⇄ Flip</button>
-          <button class="et-btn" data-edit="addSticker">+ Stiker</button>
-          <button class="et-btn" data-edit="addText">+ Teks</button>
-        </div>
-      </div>
-
-      <div class="side-panel">
-        <div class="panel-tabs">
-          <button class="panel-tab active" data-edpanel="filter">Filter</button>
-          <button class="panel-tab" data-edpanel="adjust">Atur</button>
-          <button class="panel-tab" data-edpanel="frame">Frame</button>
-          <button class="panel-tab" data-edpanel="export">Export</button>
-        </div>
-        <div class="panel-body">
-
-          <div class="panel-view active" data-edview="filter">
-            <div class="filter-cats" id="edFilterCats">
-              <button class="fcat active" data-cat="all">All</button>
-              <button class="fcat" data-cat="vintage">Vintage</button>
-              <button class="fcat" data-cat="aesthetic">Aesthetic</button>
-              <button class="fcat" data-cat="special">Special</button>
-            </div>
-            <div class="filter-grid" id="edFilterGrid"></div>
-            <div class="ctrl-group" style="margin-top:1rem">
-              <div class="ctrl-label"><span>Intensitas</span><span id="edFilterIntVal">100%</span></div>
-              <input type="range" id="edFilterIntensity" min="0" max="100" value="100">
-            </div>
-          </div>
-
-          <div class="panel-view" data-edview="adjust">
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Brightness</span><span id="edBrVal">0</span></div>
-              <input type="range" id="edBrightness" min="-100" max="100" value="0">
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Contrast</span><span id="edCoVal">0</span></div>
-              <input type="range" id="edContrast" min="-100" max="100" value="0">
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Saturation</span><span id="edSaVal">0</span></div>
-              <input type="range" id="edSaturation" min="-100" max="100" value="0">
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Warmth</span><span id="edWaVal">0</span></div>
-              <input type="range" id="edWarmth" min="-100" max="100" value="0">
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Grain</span><span id="edGrVal">0</span></div>
-              <input type="range" id="edGrain" min="0" max="100" value="0">
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Vignette</span><span id="edViVal">0</span></div>
-              <input type="range" id="edVignette" min="0" max="100" value="0">
-            </div>
-          </div>
-
-          <div class="panel-view" data-edview="frame">
-            <div class="frame-grid" id="edFrameGrid"></div>
-            <div class="divider"></div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Warna Frame</span></div>
-              <div class="swatch-row" id="edFrameColors"></div>
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Caption</span></div>
-              <input type="text" id="edFrameCaption" placeholder="Best Day Ever" maxlength="30"
-                style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-            </div>
-            <label class="flex items-center gap-2" style="font-size:.8rem;margin-top:.5rem">
-              <input type="checkbox" id="edShowDate" checked> Tampilkan tanggal
-            </label>
-          </div>
-
-          <div class="panel-view" data-edview="export">
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Format</span></div>
-              <select id="exportFormat" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-                <option value="jpeg">JPG</option>
-                <option value="png">PNG</option>
-              </select>
-            </div>
-            <div class="ctrl-group">
-              <div class="ctrl-label"><span>Kualitas</span></div>
-              <select id="exportQuality" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-                <option value="1">High (1.0)</option>
-                <option value="0.85">Medium (0.85)</option>
-                <option value="0.7">Low (0.7)</option>
-              </select>
-            </div>
-            <div class="divider"></div>
-            <div class="action-btns">
-              <button class="btn btn-primary" id="downloadBtn" style="width:100%">⬇ Download Foto</button>
-              <button class="btn btn-accent" id="printBtn" style="width:100%">🖨 Print Foto</button>
-              <button class="btn btn-outline" id="saveGalleryBtn" style="width:100%">💾 Simpan ke Gallery</button>
-            </div>
-            <div class="ctrl-group" style="margin-top:1rem">
-              <div class="ctrl-label"><span>Ukuran Print</span></div>
-              <select id="printSize" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(73,55,45,.15);background:var(--warm-white);font-size:.82rem">
-                <option value="4r">4R (4×6 inch)</option>
-                <option value="4x6">4×6 inch</option>
-                <option value="a5">A5</option>
-              </select>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ GALLERY PAGE ============ -->
+<!-- GALLERY -->
 <div class="page" id="page-gallery">
   <div class="gallery-wrap container">
     <div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1rem">
@@ -1036,35 +765,39 @@ body.darkroom footer{background:#0f0d0b}
   </div>
 </div>
 
-<!-- ============ ABOUT PAGE ============ -->
+<!-- ABOUT -->
 <div class="page" id="page-about">
   <div class="about-wrap container">
     <div class="about-hero">
-      <span class="section-eyebrow">About AFTERGLOW</span>
-      <h2 class="section-title">Tentang Kami</h2>
-      <p style="opacity:.7;margin-top:1rem;font-size:.95rem">AFTERGLOW adalah studio foto pribadi di browser-mu. Dibuat untuk mereka yang mencintai estetika analog, film vintage, dan momen yang layak dikenang — tanpa perlu install, tanpa server, tanpa kompromi.</p>
+      <span class="section-eyebrow">About</span>
+      <h2 class="section-title">Tentang AFTERGLOW</h2>
+      <p style="opacity:.7;margin-top:1rem">Photo booth di browser dengan estetika analog. Live filter, template asli photo booth, dan hasil cetak siap print.</p>
     </div>
     <div class="about-grid">
-      <div class="about-card">
-        <div class="ac-num">01</div>
-        <h3>100% Private</h3>
-        <p>Semua foto diproses secara lokal di perangkatmu. Tidak ada data yang dikirim ke server.</p>
-      </div>
-      <div class="about-card">
-        <div class="ac-num">02</div>
-        <h3>Premium Filters</h3>
-        <p>40+ filter film & aesthetic dengan kustomisasi lengkap — dari Kodak Portra hingga Cinestill.</p>
-      </div>
-      <div class="about-card">
-        <div class="ac-num">03</div>
-        <h3>Print Ready</h3>
-        <p>Hasil foto siap dicetak dalam kualitas tinggi — layout otomatis untuk kertas 4R & 4×6".</p>
-      </div>
+      <div class="about-card"><div class="ac-num">01</div><h3>100% Private</h3><p>Semua foto diproses lokal. Tidak ada data ke server.</p></div>
+      <div class="about-card"><div class="ac-num">02</div><h3>Live Filters</h3><p>Preview filter real-time langsung di kamera.</p></div>
+      <div class="about-card"><div class="ac-num">03</div><h3>Print Ready</h3><p>Hasil foto siap cetak 4R & 4×6".</p></div>
     </div>
   </div>
 </div>
 
-<!-- Editor Modal & Toast & Loading -->
+<!-- RESULT SCREEN -->
+<div class="result-screen" id="resultScreen">
+  <div class="result-inner">
+    <div class="result-head">
+      <div class="result-title">Your Photo Strip</div>
+      <button class="icon-btn" id="resultClose" style="font-size:1rem">✕</button>
+    </div>
+    <div class="result-preview" id="resultPreview"></div>
+    <div class="result-actions">
+      <button class="btn btn-ghost btn-sm" id="retakeBtn">🔄 Retake</button>
+      <button class="btn btn-primary btn-sm" id="downloadBtn">⬇ Download</button>
+      <button class="btn btn-accent btn-sm full" id="printBtn">🖨 Print</button>
+      <button class="btn btn-outline btn-sm full" id="saveGalleryBtn">💾 Simpan ke Gallery</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <div class="modal-head">
@@ -1083,53 +816,527 @@ body.darkroom footer{background:#0f0d0b}
   <div class="loading-text" id="loadingText">Memproses...</div>
 </div>
 
-<!-- Shutter Transition -->
 <div class="shutter-transition" id="shutterTransition"></div>
-
-<!-- Print Area -->
 <div id="printArea"></div>
 
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">AFTERGLOW</div>
-    <div class="footer-tag">Your Personal Photo Studio</div>
+    <div class="footer-tag">Photo Booth Studio</div>
     <div class="footer-links">
       <button onclick="showPage('home')">Home</button>
-      <button onclick="showPage('booth')">Photo Booth</button>
+      <button onclick="showPage('booth')">Booth</button>
       <button onclick="showPage('gallery')">Gallery</button>
       <button onclick="showPage('about')">About</button>
     </div>
-    <div class="footer-copy">© 2025 AFTERGLOW · Crafted with analog soul & modern code.</div>
+    <div class="footer-copy">© 2025 AFTERGLOW · Analog soul, modern code.</div>
   </div>
 </footer>
 
 <script>
-/* ==========================================================================
-   AFTERGLOW — Single File Photo Booth Studio
-   All processing client-side. No backend.
-   ========================================================================== */
+/* ============================================================
+   AFTERGLOW v2 — Real Photo Booth
+   ============================================================ */
+
+/* ============ FILTERS ============
+   Two representations:
+   1. css: CSS filter string for LIVE preview (instant, smooth)
+   2. canvas: function that mutates ImageData for FINAL render
+   
+   These must produce SIMILAR looks.
+   css can also include blend overlays via .live-overlay
+*/
+const FILTERS = [
+  { id:'none', name:'Original', cat:'all',
+    css:'none', overlay:null,
+    canvas:()=>{} },
+
+  /* ===== VINTAGE ===== */
+  { id:'kodak_portra', name:'Kodak Portra', cat:'vintage',
+    css:'sepia(0.15) saturate(0.95) brightness(1.05) contrast(0.95)',
+    overlay:{ tint:'rgba(255,200,150,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.06+8);
+      d[i+1]=Math.min(255,d[i+1]*1.0+4);
+      d[i+2]=Math.max(0,d[i+2]*0.94+6);
+    }}},
+
+  { id:'kodak_gold', name:'Kodak Gold', cat:'vintage',
+    css:'sepia(0.28) saturate(1.15) brightness(1.06) contrast(1.02)',
+    overlay:{ tint:'rgba(255,180,90,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.12+14);
+      d[i+1]=Math.min(255,d[i+1]*1.04+6);
+      d[i+2]=Math.max(0,d[i+2]*0.86+4);
+    }}},
+
+  { id:'fuji_400', name:'Fuji 400', cat:'vintage',
+    css:'sepia(0.1) saturate(1.05) hue-rotate(-5deg) brightness(1.02) contrast(1.05)',
+    overlay:{ tint:'rgba(180,220,160,0.08)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.98+4);
+      d[i+1]=Math.min(255,d[i+1]*1.08+8);
+      d[i+2]=Math.min(255,d[i+2]*0.95+6);
+    }}},
+
+  { id:'cinestill', name:'Cinestill 800T', cat:'vintage',
+    css:'saturate(1.15) hue-rotate(10deg) brightness(0.95) contrast(1.1)',
+    overlay:{ tint:'rgba(80,140,200,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.max(0,d[i]*0.85+10);
+      d[i+1]=Math.min(255,d[i+1]*1.05+4);
+      d[i+2]=Math.min(255,d[i+2]*1.18+12);
+    }}},
+
+  { id:'retro70s', name:'Retro 70s', cat:'vintage',
+    css:'sepia(0.45) saturate(1.1) brightness(1.05) contrast(0.95)',
+    overlay:{ tint:'rgba(230,140,60,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.1+18);
+      d[i+1]=Math.min(255,d[i+1]*0.96+4);
+      d[i+2]=Math.max(0,d[i+2]*0.82+6);
+    }}},
+
+  { id:'retro90s', name:'Retro 90s', cat:'vintage',
+    css:'saturate(1.2) contrast(1.05) brightness(1.0) hue-rotate(5deg)',
+    overlay:{ tint:'rgba(160,120,200,0.08)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.96+6);
+      d[i+1]=Math.min(255,d[i+1]*0.94+8);
+      d[i+2]=Math.min(255,d[i+2]*1.02+10);
+    }}},
+
+  { id:'old_memories', name:'Old Memories', cat:'vintage',
+    css:'sepia(0.55) saturate(0.8) brightness(1.08) contrast(0.88)',
+    overlay:{ tint:'rgba(200,170,120,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      const avg=(d[i]+d[i+1]+d[i+2])/3;
+      d[i]=Math.min(255,avg*0.9+d[i]*0.25+20);
+      d[i+1]=Math.min(255,avg*0.85+d[i+1]*0.2+14);
+      d[i+2]=Math.min(255,avg*0.7+d[i+2]*0.15+6);
+    }}},
+
+  { id:'sepia', name:'Sepia Classic', cat:'vintage',
+    css:'sepia(0.85) saturate(0.9) brightness(1.02)',
+    overlay:{ tint:'rgba(140,90,50,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      const r=d[i],g=d[i+1],b=d[i+2];
+      d[i]=Math.min(255,r*0.393+g*0.769+b*0.189);
+      d[i+1]=Math.min(255,r*0.349+g*0.686+b*0.168);
+      d[i+2]=Math.min(255,r*0.272+g*0.534+b*0.131);
+    }}},
+
+  { id:'analog_film', name:'Analog Film', cat:'vintage',
+    css:'sepia(0.2) saturate(0.95) brightness(1.05) contrast(1.08)',
+    overlay:{ tint:'rgba(255,200,140,0.08)', grain:true },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.05+10);
+      d[i+1]=Math.min(255,d[i+1]*1.0+6);
+      d[i+2]=Math.min(255,d[i+2]*0.92+8);
+    }}},
+
+  { id:'disposable', name:'Disposable', cat:'vintage',
+    css:'sepia(0.35) saturate(1.3) brightness(1.1) contrast(1.05)',
+    overlay:{ tint:'rgba(255,150,80,0.15)', grain:true },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.15+20);
+      d[i+1]=Math.min(255,d[i+1]*1.02+10);
+      d[i+2]=Math.max(0,d[i+2]*0.78+4);
+    }}},
+
+  { id:'polaroid_v', name:'Polaroid Vintage', cat:'vintage',
+    css:'sepia(0.25) saturate(1.05) brightness(1.08) contrast(0.92)',
+    overlay:{ tint:'rgba(255,220,180,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.06+14);
+      d[i+1]=Math.min(255,d[i+1]*1.03+10);
+      d[i+2]=Math.min(255,d[i+2]*0.9+8);
+    }}},
+
+  { id:'dusty_film', name:'Dusty Film', cat:'vintage',
+    css:'sepia(0.4) saturate(0.85) brightness(1.0) contrast(0.9)',
+    overlay:{ tint:'rgba(150,120,90,0.15)', grain:true },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.95+12);
+      d[i+1]=Math.min(255,d[i+1]*0.9+10);
+      d[i+2]=Math.max(0,d[i+2]*0.82+8);
+    }}},
+
+  { id:'vintage_flash', name:'Vintage Flash', cat:'vintage',
+    css:'brightness(1.25) contrast(1.15) sepia(0.2) saturate(1.1)',
+    overlay:{ tint:'rgba(255,240,200,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.15+30);
+      d[i+1]=Math.min(255,d[i+1]*1.1+24);
+      d[i+2]=Math.min(255,d[i+2]*0.95+18);
+    }}},
+
+  { id:'digital2000', name:'2000s Digital', cat:'vintage',
+    css:'saturate(1.1) contrast(1.1) brightness(1.02) hue-rotate(-8deg)',
+    overlay:{ tint:'rgba(180,200,255,0.06)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.02+6);
+      d[i+1]=Math.min(255,d[i+1]*1.0+6);
+      d[i+2]=Math.min(255,d[i+2]*1.08+10);
+    }}},
+
+  /* ===== AESTHETIC ===== */
+  { id:'korean_soft', name:'Korean Soft', cat:'aesthetic',
+    css:'brightness(1.1) saturate(0.85) contrast(0.92) sepia(0.08)',
+    overlay:{ tint:'rgba(255,220,230,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.98+18);
+      d[i+1]=Math.min(255,d[i+1]*0.97+16);
+      d[i+2]=Math.min(255,d[i+2]*0.95+14);
+    }}},
+
+  { id:'peachy_glow', name:'Peachy Glow', cat:'aesthetic',
+    css:'brightness(1.08) saturate(1.05) sepia(0.15)',
+    overlay:{ tint:'rgba(255,180,150,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.05+20);
+      d[i+1]=Math.min(255,d[i+1]*0.98+12);
+      d[i+2]=Math.min(255,d[i+2]*0.9+14);
+    }}},
+
+  { id:'milky_cream', name:'Milky Cream', cat:'aesthetic',
+    css:'brightness(1.15) saturate(0.8) contrast(0.88) sepia(0.1)',
+    overlay:{ tint:'rgba(250,240,220,0.18)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.92+30);
+      d[i+1]=Math.min(255,d[i+1]*0.9+28);
+      d[i+2]=Math.min(255,d[i+2]*0.85+24);
+    }}},
+
+  { id:'vanilla_sky', name:'Vanilla Sky', cat:'aesthetic',
+    css:'brightness(1.1) saturate(0.95) sepia(0.12)',
+    overlay:{ tint:'rgba(255,250,230,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.02+18);
+      d[i+1]=Math.min(255,d[i+1]*1.0+16);
+      d[i+2]=Math.min(255,d[i+2]*0.95+12);
+    }}},
+
+  { id:'pink_dream', name:'Pink Dream', cat:'aesthetic',
+    css:'brightness(1.08) saturate(1.1) hue-rotate(-12deg)',
+    overlay:{ tint:'rgba(255,180,210,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.08+20);
+      d[i+1]=Math.min(255,d[i+1]*0.95+12);
+      d[i+2]=Math.min(255,d[i+2]*1.02+16);
+    }}},
+
+  { id:'lavender', name:'Lavender Mood', cat:'aesthetic',
+    css:'brightness(1.05) saturate(0.95) hue-rotate(20deg)',
+    overlay:{ tint:'rgba(200,180,255,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.98+14);
+      d[i+1]=Math.min(255,d[i+1]*0.95+12);
+      d[i+2]=Math.min(255,d[i+2]*1.1+20);
+    }}},
+
+  { id:'soft_pastel', name:'Soft Pastel', cat:'aesthetic',
+    css:'brightness(1.12) saturate(0.8) contrast(0.9)',
+    overlay:{ tint:'rgba(255,240,250,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.9+28);
+      d[i+1]=Math.min(255,d[i+1]*0.92+26);
+      d[i+2]=Math.min(255,d[i+2]*0.9+24);
+    }}},
+
+  { id:'golden_hour', name:'Golden Hour', cat:'aesthetic',
+    css:'sepia(0.4) saturate(1.2) brightness(1.1) contrast(1.05)',
+    overlay:{ tint:'rgba(255,180,80,0.18)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.15+22);
+      d[i+1]=Math.min(255,d[i+1]*1.05+12);
+      d[i+2]=Math.max(0,d[i+2]*0.82+8);
+    }}},
+
+  { id:'sunset_glow', name:'Sunset Glow', cat:'aesthetic',
+    css:'sepia(0.35) saturate(1.3) brightness(1.05) hue-rotate(-10deg)',
+    overlay:{ tint:'rgba(255,140,80,0.18)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.18+24);
+      d[i+1]=Math.min(255,d[i+1]*0.96+10);
+      d[i+2]=Math.max(0,d[i+2]*0.85+12);
+    }}},
+
+  { id:'dreamy', name:'Dreamy Blur', cat:'aesthetic',
+    css:'brightness(1.1) saturate(0.9) contrast(0.88) blur(0.3px)',
+    overlay:{ tint:'rgba(255,240,240,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.94+22);
+      d[i+1]=Math.min(255,d[i+1]*0.92+20);
+      d[i+2]=Math.min(255,d[i+2]*0.95+18);
+    }}},
+
+  { id:'romantic', name:'Romantic Film', cat:'aesthetic',
+    css:'sepia(0.2) saturate(1.1) brightness(1.05) hue-rotate(-5deg)',
+    overlay:{ tint:'rgba(255,190,200,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.1+18);
+      d[i+1]=Math.min(255,d[i+1]*0.94+12);
+      d[i+2]=Math.min(255,d[i+2]*0.98+14);
+    }}},
+
+  { id:'cloudy', name:'Cloudy Day', cat:'aesthetic',
+    css:'brightness(1.08) saturate(0.85) contrast(0.92)',
+    overlay:{ tint:'rgba(220,230,240,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.9+24);
+      d[i+1]=Math.min(255,d[i+1]*0.93+22);
+      d[i+2]=Math.min(255,d[i+2]*0.95+20);
+    }}},
+
+  { id:'summer', name:'Summer Memories', cat:'aesthetic',
+    css:'saturate(1.15) brightness(1.08) sepia(0.15)',
+    overlay:{ tint:'rgba(255,230,150,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.08+14);
+      d[i+1]=Math.min(255,d[i+1]*1.06+12);
+      d[i+2]=Math.min(255,d[i+2]*0.95+10);
+    }}},
+
+  { id:'clean_girl', name:'Clean Girl', cat:'aesthetic',
+    css:'brightness(1.1) saturate(0.9) contrast(0.95)',
+    overlay:{ tint:'rgba(255,250,240,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.96+22);
+      d[i+1]=Math.min(255,d[i+1]*0.97+20);
+      d[i+2]=Math.min(255,d[i+2]*0.94+18);
+    }}},
+
+  { id:'soft_focus', name:'Soft Focus', cat:'aesthetic',
+    css:'brightness(1.12) saturate(0.88) contrast(0.9)',
+    overlay:{ tint:'rgba(255,245,235,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.92+26);
+      d[i+1]=Math.min(255,d[i+1]*0.92+24);
+      d[i+2]=Math.min(255,d[i+2]*0.9+22);
+    }}},
+
+  /* ===== SPECIAL ===== */
+  { id:'bw', name:'Black & White', cat:'special',
+    css:'grayscale(1) contrast(1.05)',
+    overlay:null,
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      const g=d[i]*0.299+d[i+1]*0.587+d[i+2]*0.114;
+      d[i]=d[i+1]=d[i+2]=g;
+    }}},
+
+  { id:'high_contrast', name:'High Contrast', cat:'special',
+    css:'contrast(1.4) brightness(1.02)',
+    overlay:null,
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,Math.max(0,(d[i]-128)*1.4+128));
+      d[i+1]=Math.min(255,Math.max(0,(d[i+1]-128)*1.4+128));
+      d[i+2]=Math.min(255,Math.max(0,(d[i+2]-128)*1.4+128));
+    }}},
+
+  { id:'cinematic', name:'Cinematic', cat:'special',
+    css:'saturate(1.1) contrast(1.15) brightness(0.95) hue-rotate(-5deg)',
+    overlay:{ tint:'rgba(50,100,140,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.05+10);
+      d[i+1]=Math.min(255,d[i+1]*0.98+4);
+      d[i+2]=Math.max(0,d[i+2]*0.9+20);
+    }}},
+
+  { id:'cyberpunk', name:'Cyberpunk', cat:'special',
+    css:'saturate(1.5) contrast(1.2) hue-rotate(-20deg)',
+    overlay:{ tint:'rgba(255,0,150,0.12)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.15+10);
+      d[i+1]=Math.max(0,d[i+1]*0.85);
+      d[i+2]=Math.min(255,d[i+2]*1.25+20);
+    }}},
+
+  { id:'blue_hour', name:'Blue Hour', cat:'special',
+    css:'saturate(0.95) contrast(1.05) hue-rotate(15deg) brightness(0.95)',
+    overlay:{ tint:'rgba(80,120,200,0.18)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.max(0,d[i]*0.82+8);
+      d[i+1]=Math.min(255,d[i+1]*0.95+12);
+      d[i+2]=Math.min(255,d[i+2]*1.15+24);
+    }}},
+
+  { id:'night_flash', name:'Night Flash', cat:'special',
+    css:'brightness(1.3) contrast(1.15) saturate(1.05)',
+    overlay:{ tint:'rgba(255,255,255,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      const b=35;
+      d[i]=Math.min(255,d[i]*1.1+b);
+      d[i+1]=Math.min(255,d[i+1]*1.08+b);
+      d[i+2]=Math.min(255,d[i+2]*1.05+b);
+    }}},
+
+  { id:'retro_vhs', name:'Retro VHS', cat:'special',
+    css:'saturate(1.2) contrast(1.1) hue-rotate(8deg) brightness(0.98)',
+    overlay:{ tint:'rgba(100,200,255,0.08)', grain:true },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*0.95+20);
+      d[i+1]=Math.min(255,d[i+1]*0.98+10);
+      d[i+2]=Math.min(255,d[i+2]*1.08+16);
+    }}},
+
+  { id:'grainy_film', name:'Grainy Film', cat:'special',
+    css:'sepia(0.15) contrast(1.1) brightness(1.0)',
+    overlay:{ grain:true },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      const n=(Math.random()-0.5)*40;
+      d[i]=Math.min(255,Math.max(0,d[i]*0.95+10+n));
+      d[i+1]=Math.min(255,Math.max(0,d[i+1]*0.95+8+n));
+      d[i+2]=Math.min(255,Math.max(0,d[i+2]*0.92+6+n));
+    }}},
+
+  { id:'light_leak', name:'Light Leak', cat:'special',
+    css:'brightness(1.1) saturate(1.15) sepia(0.2)',
+    overlay:{ tint:'rgba(255,120,50,0.15)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.08+18);
+      d[i+1]=Math.min(255,d[i+1]*0.96+8);
+      d[i+2]=Math.max(0,d[i+2]*0.88+4);
+    }}},
+
+  { id:'fisheye', name:'Fisheye', cat:'special',
+    css:'saturate(1.1) contrast(1.05)',
+    overlay:{ vignette:true },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.05+5);
+      d[i+1]=Math.min(255,d[i+1]*1.02+5);
+      d[i+2]=Math.min(255,d[i+2]*1.0+5);
+    }}},
+
+  { id:'glitch', name:'Glitch', cat:'special',
+    css:'saturate(1.3) contrast(1.15) hue-rotate(-15deg)',
+    overlay:{ tint:'rgba(255,0,100,0.08)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      if(Math.random()<0.05) d[i]=Math.min(255,d[i]+60);
+      if(Math.random()<0.05) d[i+2]=Math.min(255,d[i+2]+60);
+    }}},
+
+  { id:'double_exp', name:'Double Exposure', cat:'special',
+    css:'contrast(1.15) saturate(1.1) brightness(1.05)',
+    overlay:{ tint:'rgba(150,200,255,0.10)' },
+    canvas:(d)=>{ for(let i=0;i<d.length;i+=4){
+      d[i]=Math.min(255,d[i]*1.02+15);
+      d[i+1]=Math.min(255,d[i+1]*1.04+18);
+      d[i+2]=Math.min(255,d[i+2]*1.06+20);
+    }}}
+];
+
+/* ============ TEMPLATES ============
+   Each template describes:
+   - name, photoCount, layout type
+   - canvas render logic
+*/
+const TEMPLATES = [
+  {
+    id:'korean_4',
+    name:'Korean Photo Booth',
+    desc:'4 foto · strip vertikal',
+    count:4,
+    type:'strip',
+    bg:'#FFFAF4',
+    border:'#FFFAF4',
+    padding:40,
+    gap:14,
+    cornerStyle:'none',
+    labelStyle:'korean',
+    borderColor:'#FFFAF4',
+    accent:'#49372D'
+  },
+  {
+    id:'classic_3',
+    name:'Classic Photo Strip',
+    desc:'3 foto · frame putih',
+    count:3,
+    type:'strip',
+    bg:'#FFFFFF',
+    border:'#FFFFFF',
+    padding:36,
+    gap:12,
+    labelStyle:'classic',
+    accent:'#49372D'
+  },
+  {
+    id:'retro_4',
+    name:'Retro Photo Booth',
+    desc:'4 foto · vintage',
+    count:4,
+    type:'strip',
+    bg:'#F0E2C8',
+    border:'#F0E2C8',
+    padding:38,
+    gap:12,
+    labelStyle:'retro',
+    accent:'#8B4513'
+  },
+  {
+    id:'minimal_4',
+    name:'Minimal Photo Strip',
+    desc:'4 foto · putih bersih',
+    count:4,
+    type:'strip',
+    bg:'#FFFFFF',
+    border:'#FFFFFF',
+    padding:30,
+    gap:10,
+    labelStyle:'minimal',
+    accent:'#1a1a1a'
+  },
+  {
+    id:'double_6',
+    name:'Double Photo Strip',
+    desc:'2 kolom · 3+3 foto',
+    count:6,
+    type:'double',
+    bg:'#FFFAF4',
+    border:'#FFFAF4',
+    padding:32,
+    gap:12,
+    labelStyle:'double',
+    accent:'#49372D'
+  },
+  {
+    id:'square_4',
+    name:'Square Photo Booth',
+    desc:'4 foto · grid 2×2',
+    count:4,
+    type:'grid',
+    bg:'#FFFAF4',
+    border:'#FFFAF4',
+    padding:30,
+    gap:12,
+    labelStyle:'square',
+    accent:'#49372D'
+  },
+  {
+    id:'premium_4',
+    name:'Premium Studio Strip',
+    desc:'4 foto · hitam eksklusif',
+    count:4,
+    type:'strip',
+    bg:'#1a1a1a',
+    border:'#1a1a1a',
+    padding:36,
+    gap:12,
+    labelStyle:'premium',
+    accent:'#FFFAF4'
+  }
+];
 
 /* ============ STATE ============ */
 const State = {
   page: 'home',
-  currentMode: 'single',
+  currentTemplate: TEMPLATES[0],
   currentFilter: 'none',
   filterIntensity: 100,
-  adjustments: { brightness:0, contrast:0, saturation:0, warmth:0, grain:0, vignette:0 },
-  currentFrame: 'polaroid',
-  frameColor: '#FFFAF4',
-  caption: '',
-  captionFont: "'Caveat',cursive",
-  captionPos: 'bottom',
-  showDate: true,
-  favorites: JSON.parse(localStorage.getItem('ag_favorites') || '[]'),
-  // Captured session
-  capturedImages: [],       // data URLs of individual captures
-  capturedFrames: [],       // canvas frames? -> we render final composite
-  accessories: [],          // {id,type,emoji/name,x,y,size,rotation,opacity,text,color}
-  history: [],
-  historyIndex: -1,
-  currentCompositeData: null, // final dataURL of current composite
+  adjustments: { brightness:0, contrast:0, saturation:0, warmth:0 },
+  ratio: '4:3',
+  capturedImages: [],
+  finalComposite: null,
   cameraStream: null,
   facingMode: 'user',
   mirror: true,
@@ -1138,1777 +1345,1011 @@ const State = {
   isCapturing: false
 };
 
-/* ============ FILTER DEFINITIONS ============ */
-// Each filter: id, name, category, and a function(ctx, w, h) that modifies ImageData
-// For performance, we apply pixel-level adjustments. Some use simple channel math.
-const FILTERS = [
-  // VINTAGE
-  { id:'none', name:'Original', cat:'all', apply:()=>{} },
-  { id:'kodak_portra', name:'Kodak Portra', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.08 + 8);        // R boost, warm
-      d[i+1] = Math.min(255, d[i+1]*1.02 + 4);
-      d[i+2] = Math.max(0, d[i+2]*0.92 + 8);       // B reduce slightly
-    }
-  }},
-  { id:'kodak_gold', name:'Kodak Gold', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.12 + 14);
-      d[i+1] = Math.min(255, d[i+1]*1.06 + 6);
-      d[i+2] = Math.max(0, d[i+2]*0.88 + 4);
-    }
-  }},
-  { id:'fuji_400', name:'Fuji 400', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.98 + 4);
-      d[i+1] = Math.min(255, d[i+1]*1.08 + 8);   // green push
-      d[i+2] = Math.min(255, d[i+2]*0.95 + 6);
-    }
-  }},
-  { id:'cinestill', name:'Cinestill 800T', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.max(0, d[i]*0.85 + 10);
-      d[i+1] = Math.min(255, d[i+1]*1.05 + 4);
-      d[i+2] = Math.min(255, d[i+2]*1.18 + 12);  // blue push cinematic
-    }
-  }},
-  { id:'retro70s', name:'Retro 70s', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.1 + 18);
-      d[i+1] = Math.min(255, d[i+1]*0.96 + 4);
-      d[i+2] = Math.max(0, d[i+2]*0.82 + 6);
-    }
-  }},
-  { id:'retro90s', name:'Retro 90s', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.96 + 6);
-      d[i+1] = Math.min(255, d[i+1]*0.94 + 8);
-      d[i+2] = Math.min(255, d[i+2]*1.02 + 10);
-    }
-  }},
-  { id:'old_memories', name:'Old Memories', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      const avg = (d[i]+d[i+1]+d[i+2])/3;
-      d[i] = Math.min(255, avg*0.9 + d[i]*0.25 + 20);
-      d[i+1] = Math.min(255, avg*0.85 + d[i+1]*0.2 + 14);
-      d[i+2] = Math.min(255, avg*0.7 + d[i+2]*0.15 + 6);
-    }
-  }},
-  { id:'sepia', name:'Sepia Classic', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      const r=d[i],g=d[i+1],b=d[i+2];
-      d[i] = Math.min(255, r*0.393 + g*0.769 + b*0.189);
-      d[i+1] = Math.min(255, r*0.349 + g*0.686 + b*0.168);
-      d[i+2] = Math.min(255, r*0.272 + g*0.534 + b*0.131);
-    }
-  }},
-  { id:'analog_film', name:'Analog Film', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.05 + 10);
-      d[i+1] = Math.min(255, d[i+1]*1.0 + 6);
-      d[i+2] = Math.min(255, d[i+2]*0.92 + 8);
-    }
-  }},
-  { id:'disposable', name:'Disposable', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.15 + 20);
-      d[i+1] = Math.min(255, d[i+1]*1.02 + 10);
-      d[i+2] = Math.max(0, d[i+2]*0.78 + 4);
-    }
-  }},
-  { id:'polaroid_v', name:'Polaroid Vintage', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.06 + 14);
-      d[i+1] = Math.min(255, d[i+1]*1.03 + 10);
-      d[i+2] = Math.min(255, d[i+2]*0.9 + 8);
-    }
-  }},
-  { id:'dusty_film', name:'Dusty Film', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.95 + 12);
-      d[i+1] = Math.min(255, d[i+1]*0.9 + 10);
-      d[i+2] = Math.max(0, d[i+2]*0.82 + 8);
-    }
-  }},
-  { id:'warm_nostalgia', name:'Warm Nostalgia', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.12 + 14);
-      d[i+1] = Math.min(255, d[i+1]*1.0 + 8);
-      d[i+2] = Math.max(0, d[i+2]*0.86 + 10);
-    }
-  }},
-  { id:'vintage_flash', name:'Vintage Flash', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      const boost = 30;
-      d[i] = Math.min(255, d[i]*1.15 + boost);
-      d[i+1] = Math.min(255, d[i+1]*1.1 + boost*0.8);
-      d[i+2] = Math.min(255, d[i+2]*0.95 + boost*0.6);
-    }
-  }},
-  { id:'digital2000', name:'2000s Digital', cat:'vintage', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.02 + 6);
-      d[i+1] = Math.min(255, d[i+1]*1.0 + 6);
-      d[i+2] = Math.min(255, d[i+2]*1.08 + 10);
-      // slight cool digital look
-    }
-  }},
-  // AESTHETIC
-  { id:'korean_soft', name:'Korean Soft', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.98 + 18);
-      d[i+1] = Math.min(255, d[i+1]*0.97 + 16);
-      d[i+2] = Math.min(255, d[i+2]*0.95 + 14);
-    }
-  }},
-  { id:'peachy_glow', name:'Peachy Glow', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.05 + 20);
-      d[i+1] = Math.min(255, d[i+1]*0.98 + 12);
-      d[i+2] = Math.min(255, d[i+2]*0.9 + 14);
-    }
-  }},
-  { id:'milky_cream', name:'Milky Cream', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.92 + 30);
-      d[i+1] = Math.min(255, d[i+1]*0.9 + 28);
-      d[i+2] = Math.min(255, d[i+2]*0.85 + 24);
-    }
-  }},
-  { id:'vanilla_sky', name:'Vanilla Sky', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.02 + 18);
-      d[i+1] = Math.min(255, d[i+1]*1.0 + 16);
-      d[i+2] = Math.min(255, d[i+2]*0.95 + 12);
-    }
-  }},
-  { id:'pink_dream', name:'Pink Dream', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.08 + 20);
-      d[i+1] = Math.min(255, d[i+1]*0.95 + 12);
-      d[i+2] = Math.min(255, d[i+2]*1.02 + 16);
-    }
-  }},
-  { id:'lavender', name:'Lavender Mood', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.98 + 14);
-      d[i+1] = Math.min(255, d[i+1]*0.95 + 12);
-      d[i+2] = Math.min(255, d[i+2]*1.1 + 20);
-    }
-  }},
-  { id:'soft_pastel', name:'Soft Pastel', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.9 + 28);
-      d[i+1] = Math.min(255, d[i+1]*0.92 + 26);
-      d[i+2] = Math.min(255, d[i+2]*0.9 + 24);
-    }
-  }},
-  { id:'golden_hour', name:'Golden Hour', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.15 + 22);
-      d[i+1] = Math.min(255, d[i+1]*1.05 + 12);
-      d[i+2] = Math.max(0, d[i+2]*0.82 + 8);
-    }
-  }},
-  { id:'sunset_glow', name:'Sunset Glow', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.18 + 24);
-      d[i+1] = Math.min(255, d[i+1]*0.96 + 10);
-      d[i+2] = Math.max(0, d[i+2]*0.85 + 12);
-    }
-  }},
-  { id:'dreamy', name:'Dreamy Blur', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.94 + 22);
-      d[i+1] = Math.min(255, d[i+1]*0.92 + 20);
-      d[i+2] = Math.min(255, d[i+2]*0.95 + 18);
-    }
-  }},
-  { id:'romantic', name:'Romantic Film', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.1 + 18);
-      d[i+1] = Math.min(255, d[i+1]*0.94 + 12);
-      d[i+2] = Math.min(255, d[i+2]*0.98 + 14);
-    }
-  }},
-  { id:'cloudy', name:'Cloudy Day', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.9 + 24);
-      d[i+1] = Math.min(255, d[i+1]*0.93 + 22);
-      d[i+2] = Math.min(255, d[i+2]*0.95 + 20);
-    }
-  }},
-  { id:'summer', name:'Summer Memories', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.08 + 14);
-      d[i+1] = Math.min(255, d[i+1]*1.06 + 12);
-      d[i+2] = Math.min(255, d[i+2]*0.95 + 10);
-    }
-  }},
-  { id:'clean_girl', name:'Clean Girl', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.96 + 22);
-      d[i+1] = Math.min(255, d[i+1]*0.97 + 20);
-      d[i+2] = Math.min(255, d[i+2]*0.94 + 18);
-    }
-  }},
-  { id:'soft_focus', name:'Soft Focus', cat:'aesthetic', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.92 + 26);
-      d[i+1] = Math.min(255, d[i+1]*0.92 + 24);
-      d[i+2] = Math.min(255, d[i+2]*0.9 + 22);
-    }
-  }},
-  // SPECIAL
-  { id:'bw', name:'Black & White', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      const g = d[i]*0.299 + d[i+1]*0.587 + d[i+2]*0.114;
-      d[i]=d[i+1]=d[i+2]=g;
-    }
-  }},
-  { id:'high_contrast', name:'High Contrast', cat:'special', apply:(d)=>{
-    const c = 40;
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, Math.max(0, (d[i]-128)*(1+c/100)+128));
-      d[i+1] = Math.min(255, Math.max(0, (d[i+1]-128)*(1+c/100)+128));
-      d[i+2] = Math.min(255, Math.max(0, (d[i+2]-128)*(1+c/100)+128));
-    }
-  }},
-  { id:'cinematic', name:'Cinematic', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      const r=d[i],g=d[i+1],b=d[i+2];
-      // teal shadows, orange highlights
-      d[i] = Math.min(255, r*1.05 + 10);
-      d[i+1] = Math.min(255, g*0.98 + 4);
-      d[i+2] = Math.max(0, b*0.9 + 20);
-    }
-  }},
-  { id:'cyberpunk', name:'Cyberpunk', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.15 + 10);
-      d[i+1] = Math.max(0, d[i+1]*0.85);
-      d[i+2] = Math.min(255, d[i+2]*1.25 + 20);
-    }
-  }},
-  { id:'blue_hour', name:'Blue Hour', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.max(0, d[i]*0.82 + 8);
-      d[i+1] = Math.min(255, d[i+1]*0.95 + 12);
-      d[i+2] = Math.min(255, d[i+2]*1.15 + 24);
-    }
-  }},
-  { id:'night_flash', name:'Night Flash', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      const boost = 35;
-      d[i] = Math.min(255, d[i]*1.1 + boost);
-      d[i+1] = Math.min(255, d[i+1]*1.08 + boost);
-      d[i+2] = Math.min(255, d[i+2]*1.05 + boost);
-    }
-  }},
-  { id:'retro_vhs', name:'Retro VHS', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*0.95 + 20);
-      d[i+1] = Math.min(255, d[i+1]*0.98 + 10);
-      d[i+2] = Math.min(255, d[i+2]*1.08 + 16);
-    }
-  }},
-  { id:'grainy_film', name:'Grainy Film', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      const n = (Math.random()-0.5)*40;
-      d[i] = Math.min(255, Math.max(0, d[i]*0.95 + 10 + n));
-      d[i+1] = Math.min(255, Math.max(0, d[i+1]*0.95 + 8 + n));
-      d[i+2] = Math.min(255, Math.max(0, d[i+2]*0.92 + 6 + n));
-    }
-  }},
-  { id:'light_leak', name:'Light Leak', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      d[i] = Math.min(255, d[i]*1.08 + 18);
-      d[i+1] = Math.min(255, d[i+1]*0.96 + 8);
-      d[i+2] = Math.max(0, d[i+2]*0.88 + 4);
-    }
-  }},
-  { id:'fisheye', name:'Fisheye', cat:'special', apply:()=>{ /* handled via canvas geometry; simple chromatic */ }},
-  { id:'glitch', name:'Glitch', cat:'special', apply:(d)=>{
-    for(let i=0;i<d.length;i+=4){
-      if(Math.random()<0.05){ d[i] = Math.min(255,d[i]+60); }
-      if(Math.random()<0.05){ d[i+2] = Math.min(255,d[i+2]+60); }
-    }
-  }},
-  { id:'double_exp', name:'Double Exposure', cat:'special', apply:()=>{ /* handled in canvas composite */ }}
-];
-
-/* ============ FRAMES ============ */
-const FRAMES = [
-  { id:'none', name:'No Frame', color:'#FFFAF4' },
-  { id:'polaroid', name:'Polaroid', color:'#FFFAF4' },
-  { id:'korean', name:'Korean Booth', color:'#FFF5F7' },
-  { id:'vintage_film', name:'Vintage Film', color:'#2c241e' },
-  { id:'retro90s', name:'Retro 90s', color:'#FDE4C4' },
-  { id:'pink', name:'Pink Aesthetic', color:'#FFE4EC' },
-  { id:'cream', name:'Cream Minimal', color:'#F7F1E9' },
-  { id:'black', name:'Black Elegant', color:'#1a1a1a' },
-  { id:'scrapbook', name:'Scrapbook', color:'#F5EDE0' },
-  { id:'love', name:'Love Letter', color:'#FFE8E8' },
-  { id:'summer', name:'Summer Diary', color:'#FFF4D6' },
-  { id:'newspaper', name:'Newspaper', color:'#F0EDE5' },
-  { id:'oldcamera', name:'Old Camera', color:'#3a2e25' }
-];
-
-const FRAME_COLORS = ['#FFFAF4','#F7F1E9','#DCCBBC','#49372D','#A65F43','#1a1a1a','#FFE4EC','#FDE4C4','#FFF4D6','#E8F4EC'];
-
-/* ============ ACCESSORIES DATA ============ */
-const ACCESSORIES = {
-  face: [
-    { id:'sunglasses', emoji:'🕶️', name:'Kacamata Hitam' },
-    { id:'retro_glasses', emoji:'🥽', name:'Kacamata Retro' },
-    { id:'heart_glasses', emoji:'😍', name:'Kacamata Hati' },
-    { id:'round_glasses', emoji:'👓', name:'Kacamata Bulat' },
-    { id:'star_glasses', emoji:'⭐', name:'Kacamata Bintang' },
-    { id:'mustache', emoji:'👨', name:'Kumis' },
-    { id:'crown', emoji:'👑', name:'Mahkota' },
-    { id:'tiara', emoji:'💎', name:'Tiara' },
-    { id:'bunny', emoji:'🐰', name:'Telinga Kelinci' },
-    { id:'cat', emoji:'🐱', name:'Telinga Kucing' },
-    { id:'party_hat', emoji:'🎉', name:'Topi Party' },
-    { id:'vintage_hat', emoji:'🎩', name:'Topi Vintage' },
-    { id:'ribbon', emoji:'🎀', name:'Pita Rambut' },
-    { id:'flower_crown', emoji:'🌸', name:'Flower Crown' }
-  ],
-  cute: [
-    { id:'heart', emoji:'❤️', name:'Hearts' },
-    { id:'sparkle', emoji:'✨', name:'Sparkles' },
-    { id:'star', emoji:'⭐', name:'Stars' },
-    { id:'flower', emoji:'🌺', name:'Flowers' },
-    { id:'butterfly', emoji:'🦋', name:'Butterfly' },
-    { id:'bear', emoji:'🧸', name:'Teddy Bear' },
-    { id:'ribbon2', emoji:'🎀', name:'Ribbon' },
-    { id:'cherry', emoji:'🍒', name:'Cherry' },
-    { id:'strawberry', emoji:'🍓', name:'Strawberry' },
-    { id:'smiley', emoji:'😊', name:'Smiley' },
-    { id:'angel', emoji:'👼', name:'Angel Wings' },
-    { id:'cloud', emoji:'☁️', name:'Cloud' },
-    { id:'shooting_star', emoji:'🌠', name:'Shooting Star' },
-    { id:'cute_cat', emoji:'🐈', name:'Cute Cat' },
-    { id:'retro_smiley', emoji:'☮️', name:'Retro Smiley' },
-    { id:'camera_icon', emoji:'📷', name:'Camera' },
-    { id:'film_icon', emoji:'🎞️', name:'Film' }
-  ],
-  vintage: [
-    { id:'stamp', emoji:'📮', name:'Postage Stamp' },
-    { id:'date_stamp', emoji:'📅', name:'Date Stamp' },
-    { id:'film_burn', emoji:'🔥', name:'Film Burn' },
-    { id:'dust', emoji:'💫', name:'Dust' },
-    { id:'scratch', emoji:'〰️', name:'Scratch' },
-    { id:'retro_star', emoji:'✡️', name:'Retro Star' },
-    { id:'frame_v', emoji:'🖼️', name:'Vintage Frame' },
-    { id:'doodle', emoji:'✏️', name:'Doodles' },
-    { id:'typo', emoji:'🔤', name:'Retro Typo' },
-    { id:'leak', emoji:'☀️', name:'Light Leak' }
-  ],
-  text: [
-    { id:'t1', text:'Best Day Ever' },
-    { id:'t2', text:'Little Memories' },
-    { id:'t3', text:'Forever Young' },
-    { id:'t4', text:'Good Times' },
-    { id:'t5', text:'Love This Moment' },
-    { id:'t6', text:'Summer 2026' }
-  ]
-};
-
-/* ============ DOM HELPERS ============ */
-const $ = (s, ctx=document) => ctx.querySelector(s);
-const $$ = (s, ctx=document) => [...ctx.querySelectorAll(s)];
-const show = el => el && el.classList.remove('hidden');
-const hide = el => el && el.classList.add('hidden');
+const $ = (s,ctx=document)=>ctx.querySelector(s);
+const $$ = (s,ctx=document)=>[...ctx.querySelectorAll(s)];
 
 /* ============ TOAST ============ */
-function toast(msg, type='') {
-  const el = document.createElement('div');
-  el.className = 'toast ' + type;
-  el.textContent = msg;
+function toast(msg,type=''){
+  const el=document.createElement('div');
+  el.className='toast '+type;
+  el.textContent=msg;
   $('#toastWrap').appendChild(el);
-  setTimeout(()=>{ el.style.opacity='0'; el.style.transform='translateY(10px)'; el.style.transition='all .3s'; }, 2200);
-  setTimeout(()=>el.remove(), 2600);
+  setTimeout(()=>{el.style.opacity='0';el.style.transition='all .3s';},2200);
+  setTimeout(()=>el.remove(),2600);
 }
-
-/* ============ LOADING ============ */
-function setLoading(on, text='Memproses...') {
-  $('#loadingOverlay').classList.toggle('show', on);
-  if(text) $('#loadingText').textContent = text;
+function setLoading(on,text='Memproses...'){
+  $('#loadingOverlay').classList.toggle('show',on);
+  if(text) $('#loadingText').textContent=text;
 }
 
 /* ============ PAGE NAV ============ */
-function showPage(page) {
-  State.page = page;
+function showPage(page){
+  State.page=page;
   $$('.page').forEach(p=>p.classList.remove('active'));
-  const el = $('#page-'+page);
+  const el=$('#page-'+page);
   if(el) el.classList.add('active');
-  $$('.nav-links button').forEach(b=>b.classList.toggle('active', b.dataset.page===page));
+  $$('.nav-links button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
   window.scrollTo({top:0,behavior:'smooth'});
   if(page==='gallery') renderGallery();
-  if(page==='editor') renderEditor();
 }
+$$('.nav-links button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 
 /* ============ INTRO ============ */
 setTimeout(()=>{
-  const intro = $('#intro');
+  const intro=$('#intro');
   intro.classList.add('hide');
-  setTimeout(()=>intro.remove(), 900);
-}, 2200);
+  setTimeout(()=>intro.remove(),900);
+},2200);
 
-/* ============ NAV EVENTS ============ */
-$$('.nav-links button').forEach(b=>{
-  b.addEventListener('click', ()=>showPage(b.dataset.page));
-});
-
-/* ============ DARKROOM MODE ============ */
-$('#darkroomToggle').addEventListener('click', ()=>{
+/* ============ DARKROOM ============ */
+$('#darkroomToggle').addEventListener('click',()=>{
   document.body.classList.toggle('darkroom');
-  const isDark = document.body.classList.contains('darkroom');
-  $('#darkroomToggle').textContent = isDark ? '☀️' : '🌙';
-  localStorage.setItem('ag_darkroom', isDark ? '1' : '0');
+  const isDark=document.body.classList.contains('darkroom');
+  $('#darkroomToggle').textContent=isDark?'☀️':'🌙';
+  localStorage.setItem('ag_darkroom',isDark?'1':'0');
 });
 if(localStorage.getItem('ag_darkroom')==='1'){
   document.body.classList.add('darkroom');
-  $('#darkroomToggle').textContent = '☀️';
+  $('#darkroomToggle').textContent='☀️';
 }
 
 /* ============ CAMERA ============ */
-const video = $('#video');
-const camPlaceholder = $('#camPlaceholder');
-const camDot = $('#camDot');
-const camStatusText = $('#camStatusText');
-const camToolbar = $('#camToolbar');
-const captureBtn = $('#captureBtn');
-const captureHint = $('#captureHint');
-const startCamBtn = $('#startCamBtn');
+const video=$('#video');
+const camPlaceholder=$('#camPlaceholder');
+const camDot=$('#camDot');
+const camStatusText=$('#camStatusText');
+const camToolbar=$('#camToolbar');
+const startSessionBtn=$('#startSessionBtn');
 
-async function startCamera(facingMode) {
-  facingMode = facingMode || State.facingMode;
-  setLoading(true, 'Mengaktifkan kamera...');
-  try {
-    // stop existing
+/* Apply live filter CSS + overlays */
+function applyLiveFilter(){
+  const f=FILTERS.find(x=>x.id===State.currentFilter)||FILTERS[0];
+  // CSS filter on video, but fade by intensity
+  const intensity=State.filterIntensity/100;
+  if(f.css==='none'||State.currentFilter==='none'){
+    video.style.filter='none';
+  } else {
+    // Blend: when intensity < 1, use lesser values by mixing with none
+    // Simplest: scale each filter's strength using CSS custom via opacity trick not possible
+    // Trick: apply filter only at full; at low intensity use reduced filter string
+    // We'll just cap the string at intensity by generating scaled version
+    video.style.filter = buildCssFilterAtIntensity(f.css, intensity);
+  }
+  // Custom adjustments applied as additional CSS filter
+  const adjCss = buildAdjustCss(State.adjustments);
+  if(adjCss) {
+    video.style.filter = (video.style.filter==='none'?'':video.style.filter+' ')+adjCss;
+  }
+  // Overlays
+  const overlay=$('#liveOverlay');
+  overlay.className='live-overlay';
+  overlay.style.background=f.overlay&&f.overlay.tint?f.overlay.tint:'transparent';
+  if(f.overlay){
+    if(f.overlay.grain) overlay.classList.add('grain');
+    if(f.overlay.vignette) overlay.classList.add('vignette');
+  }
+}
+
+/* Build CSS filter string scaled by intensity (0-1).
+   We parse known functions and multiply numeric values. */
+function buildCssFilterAtIntensity(css, t){
+  if(t>=1) return css;
+  if(t<=0) return 'none';
+  return css.replace(/([a-z\-]+)\(([^)]+)\)/g,(m,fn,val)=>{
+    // parse value, may have units
+    const num=parseFloat(val);
+    if(isNaN(num)) return m;
+    if(fn==='hue-rotate') return `${fn}(${num*t}deg)`;
+    if(fn==='blur') return `${fn}(${num*t}px)`;
+    if(fn==='grayscale'||fn==='sepia'||fn==='saturate'||fn==='brightness'||fn==='contrast'){
+      // interpolate from 1 (neutral) to num
+      const blended=1+(num-1)*t;
+      return `${fn}(${blended})`;
+    }
+    return m;
+  });
+}
+
+function buildAdjustCss(a){
+  const parts=[];
+  if(a.brightness!==0) parts.push(`brightness(${1+a.brightness/200})`);
+  if(a.contrast!==0) parts.push(`contrast(${1+a.contrast/200})`);
+  if(a.saturation!==0) parts.push(`saturate(${1+a.saturation/150})`);
+  if(a.warmth!==0) parts.push(`sepia(${Math.abs(a.warmth)/500}) hue-rotate(${a.warmth<0?'-':''}${Math.abs(a.warmth)/10}deg)`);
+  return parts.join(' ');
+}
+
+async function startCamera(facingMode){
+  facingMode=facingMode||State.facingMode;
+  setLoading(true,'Mengaktifkan kamera...');
+  try{
     if(State.cameraStream){
       State.cameraStream.getTracks().forEach(t=>t.stop());
-      State.cameraStream = null;
+      State.cameraStream=null;
     }
-    const constraints = {
-      video: {
-        facingMode: facingMode,
-        width: { ideal: 1280 },
-        height: { ideal: 960 }
-      },
-      audio: false
+    const constraints={
+      video:{facingMode:facingMode,width:{ideal:1280},height:{ideal:960}},
+      audio:false
     };
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    State.cameraStream = stream;
-    State.facingMode = facingMode;
-    video.srcObject = stream;
+    const stream=await navigator.mediaDevices.getUserMedia(constraints);
+    State.cameraStream=stream;
+    State.facingMode=facingMode;
+    video.srcObject=stream;
     await video.play();
-    State.camActive = true;
+    State.camActive=true;
     camPlaceholder.classList.add('hidden');
-    camToolbar.style.display = 'flex';
+    camToolbar.style.display='flex';
     camDot.classList.add('on');
-    camStatusText.textContent = 'Camera Live';
-    captureBtn.disabled = false;
-    captureHint.textContent = 'Tekan tombol untuk mengambil foto';
-    // Apply mirror
-    if(facingMode==='user' && State.mirror){
+    camStatusText.textContent='Live';
+    startSessionBtn.disabled=false;
+    if(facingMode==='user'&&State.mirror){
       video.classList.add('mirrored');
       $('#mirrorBtn').classList.add('active');
     } else {
       video.classList.remove('mirrored');
       $('#mirrorBtn').classList.remove('active');
     }
-  } catch(err) {
+    applyLiveFilter();
+  }catch(err){
     console.error(err);
-    let msg = 'Kamera tidak dapat diakses.';
-    if(err.name==='NotAllowedError' || err.name==='PermissionDeniedError'){
-      msg = 'Izin kamera ditolak. Silakan izinkan akses kamera di pengaturan browser.';
-    } else if(err.name==='NotFoundError' || err.name==='DevicesNotFoundError'){
-      msg = 'Kamera tidak ditemukan di perangkat ini.';
-    } else if(err.name==='NotReadableError'){
-      msg = 'Kamera sedang digunakan aplikasi lain.';
-    }
-    toast(msg, 'error');
-    camStatusText.textContent = 'Camera Error';
+    let msg='Kamera tidak dapat diakses.';
+    if(err.name==='NotAllowedError'||err.name==='PermissionDeniedError') msg='Izin kamera ditolak. Izinkan akses di browser.';
+    else if(err.name==='NotFoundError') msg='Kamera tidak ditemukan.';
+    else if(err.name==='NotReadableError') msg='Kamera dipakai aplikasi lain.';
+    toast(msg,'error');
+    camStatusText.textContent='Error';
     camPlaceholder.classList.remove('hidden');
-    camPlaceholder.querySelector('p').textContent = msg;
-  } finally {
+    camPlaceholder.querySelector('p').textContent=msg;
+  }finally{
     setLoading(false);
   }
 }
 
-startCamBtn.addEventListener('click', ()=>startCamera());
-$('#switchCamBtn').addEventListener('click', ()=>{
-  const next = State.facingMode === 'user' ? 'environment' : 'user';
+$('#startCamBtn').addEventListener('click',()=>startCamera());
+$('#switchCamBtn').addEventListener('click',()=>{
+  const next=State.facingMode==='user'?'environment':'user';
   startCamera(next);
 });
-$('#mirrorBtn').addEventListener('click', ()=>{
-  State.mirror = !State.mirror;
-  video.classList.toggle('mirrored', State.mirror && State.facingMode==='user');
-  $('#mirrorBtn').classList.toggle('active', State.mirror);
+$('#mirrorBtn').addEventListener('click',()=>{
+  State.mirror=!State.mirror;
+  video.classList.toggle('mirrored',State.mirror&&State.facingMode==='user');
+  $('#mirrorBtn').classList.toggle('active',State.mirror);
 });
-$('#soundBtn').addEventListener('click', ()=>{
-  State.soundEnabled = !State.soundEnabled;
-  $('#soundBtn').textContent = State.soundEnabled ? '🔊' : '🔇';
-  $('#soundBtn').classList.toggle('active', State.soundEnabled);
-});
-$('#guideBtn').addEventListener('click', ()=>{
-  showModal('Panduan Kamera', `
-    <div style="font-size:.9rem;line-height:1.7">
-      <p><strong>1.</strong> Klik "Aktifkan Kamera" dan izinkan akses kamera.</p>
-      <p><strong>2.</strong> Pilih mode, filter, frame, dan aksesoris di panel kanan.</p>
-      <p><strong>3.</strong> Atur countdown sesuai preferensi.</p>
-      <p><strong>4.</strong> Tekan tombol capture besar. Kamera akan menghitung mundur dan mengambil foto.</p>
-      <p><strong>5.</strong> Untuk photo strip/grid, kamera akan mengambil beberapa foto berturut-turut.</p>
-      <p style="margin-top:.8rem;padding:.6rem;background:rgba(166,95,67,.1);border-radius:8px;font-size:.8rem">
-        💡 <strong>Tips:</strong> Gunakan kamera belakang untuk kualitas lebih baik di HP. Aktifkan flash effect untuk look lebih dramatis.
-      </p>
-    </div>
-  `);
+$('#soundBtn').addEventListener('click',()=>{
+  State.soundEnabled=!State.soundEnabled;
+  $('#soundBtn').textContent=State.soundEnabled?'🔊':'🔇';
+  $('#soundBtn').classList.toggle('active',State.soundEnabled);
 });
 
-/* ============ SOUND (Web Audio) ============ */
-let audioCtx = null;
-function playShutter() {
+/* ============ SHUTTER SOUND ============ */
+let audioCtx=null;
+function playShutter(){
   if(!State.soundEnabled) return;
-  try {
-    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const ctx = audioCtx;
-    // click
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(800, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime+0.05);
-    gain.gain.setValueAtTime(0.08, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.08);
+  try{
+    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const ctx=audioCtx;
+    const osc=ctx.createOscillator();
+    const gain=ctx.createGain();
+    osc.type='square';
+    osc.frequency.setValueAtTime(800,ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(200,ctx.currentTime+0.05);
+    gain.gain.setValueAtTime(0.08,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.08);
     osc.connect(gain).connect(ctx.destination);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime+0.08);
-    // second click
+    osc.start(); osc.stop(ctx.currentTime+0.08);
     setTimeout(()=>{
-      const osc2 = ctx.createOscillator();
-      const g2 = ctx.createGain();
-      osc2.type='square';
-      osc2.frequency.setValueAtTime(500, ctx.currentTime);
-      g2.gain.setValueAtTime(0.06, ctx.currentTime);
-      g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.06);
-      osc2.connect(g2).connect(ctx.destination);
-      osc2.start(ctx.currentTime);
-      osc2.stop(ctx.currentTime+0.06);
-    }, 60);
-  } catch(e) {}
+      const o2=ctx.createOscillator();
+      const g2=ctx.createGain();
+      o2.type='square';
+      o2.frequency.setValueAtTime(500,ctx.currentTime);
+      g2.gain.setValueAtTime(0.06,ctx.currentTime);
+      g2.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.06);
+      o2.connect(g2).connect(ctx.destination);
+      o2.start(); o2.stop(ctx.currentTime+0.06);
+    },60);
+  }catch(e){}
+}
+function playTick(){
+  if(!State.soundEnabled) return;
+  try{
+    if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const osc=audioCtx.createOscillator();
+    const gain=audioCtx.createGain();
+    osc.frequency.value=880;
+    gain.gain.setValueAtTime(0.04,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.1);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(); osc.stop(audioCtx.currentTime+0.1);
+  }catch(e){}
 }
 
-/* ============ COUNTDOWN & CAPTURE ============ */
-async function countdownAndCapture(seconds=3) {
+/* ============ COUNTDOWN ============ */
+function countdownAndCapture(seconds){
   return new Promise(resolve=>{
-    let n = seconds;
-    const overlay = $('#countdownOverlay');
-    const numEl = $('#countdownNum');
+    let n=seconds;
+    const overlay=$('#countdownOverlay');
+    const numEl=$('#countdownNum');
     overlay.classList.add('show');
-    numEl.textContent = n;
-    const tick = ()=>{
-      playCountdownTick();
-      // pop animation restart
+    numEl.textContent=n;
+    playTick();
+    numEl.style.animation='none';
+    void numEl.offsetWidth;
+    numEl.style.animation='countPop .9s cubic-bezier(.16,1,.3,1)';
+    const interval=setInterval(()=>{
+      n--;
+      if(n<=0){
+        clearInterval(interval);
+        numEl.textContent='📸';
+        setTimeout(()=>{overlay.classList.remove('show');resolve();},250);
+        return;
+      }
+      numEl.textContent=n;
+      playTick();
       numEl.style.animation='none';
       void numEl.offsetWidth;
       numEl.style.animation='countPop .9s cubic-bezier(.16,1,.3,1)';
-      if(n<=0){
-        overlay.classList.remove('show');
-        resolve();
-        return;
-      }
-      n--;
-      if(n>0) numEl.textContent = n;
-      else {
-        numEl.textContent = '📸';
-        setTimeout(()=>{overlay.classList.remove('show'); resolve();}, 300);
-      }
-    };
-    tick();
-    const int = setInterval(()=>{
-      if(n<=0){ clearInterval(int); return; }
-      tick();
-    }, 1000);
+    },1000);
   });
 }
-function playCountdownTick() {
-  if(!State.soundEnabled) return;
-  try {
-    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.frequency.value = 880;
-    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.1);
-    osc.connect(gain).connect(audioCtx.destination);
-    osc.start(); osc.stop(audioCtx.currentTime+0.1);
-  } catch(e){}
-}
 
-function flashScreen() {
-  const flash = $('#flashEffect');
+function flashScreen(){
+  const flash=$('#flashEffect');
   flash.classList.remove('fire');
   void flash.offsetWidth;
   flash.classList.add('fire');
 }
-function shutterTransition() {
-  const st = $('#shutterTransition');
+function shutterTransition(){
+  const st=$('#shutterTransition');
   st.classList.remove('fire');
   void st.offsetWidth;
   st.classList.add('fire');
 }
 
-function captureFrameToDataURL() {
-  // Render current video frame to canvas at video resolution
-  const vw = video.videoWidth || 640;
-  const vh = video.videoHeight || 480;
-  const c = document.createElement('canvas');
-  c.width = vw; c.height = vh;
-  const ctx = c.getContext('2d');
+/* ============ CAPTURE FRAME (with LIVE FILTER baked in) ============ */
+function captureFrameToDataURL(){
+  const ratioMap = {'4:3':[4,3],'3:4':[3,4],'1:1':[1,1],'4:5':[4,5]};
+  const [rw,rh] = ratioMap[State.ratio] || [4,3];
+  const vw=video.videoWidth||640, vh=video.videoHeight||480;
+  const targetAR = rw/rh;
+  // Crop video to target aspect ratio (center crop)
+  const srcAR = vw/vh;
+  let sx=0,sy=0,sw=vw,sh=vh;
+  if(srcAR>targetAR){
+    // too wide, crop width
+    sw = vh*targetAR;
+    sx = (vw-sw)/2;
+  } else {
+    // too tall, crop height
+    sh = vw/targetAR;
+    sy = (vh-sh)/2;
+  }
+  // Output at high res
+  const OUT_W = 1200;
+  const OUT_H = Math.round(OUT_W/ targetAR);
+  const c=document.createElement('canvas');
+  c.width=OUT_W; c.height=OUT_H;
+  const ctx=c.getContext('2d');
   ctx.save();
   if(State.mirror && State.facingMode==='user'){
     ctx.translate(c.width,0);
     ctx.scale(-1,1);
   }
-  ctx.drawImage(video, 0, 0, vw, vh);
+  ctx.drawImage(video, sx,sy,sw,sh, 0,0,OUT_W,OUT_H);
   ctx.restore();
-  return c.toDataURL('image/jpeg', 0.92);
+
+  // Apply filter + adjustments to canvas
+  applyFilterAndAdjustToCanvas(c, State.currentFilter, State.filterIntensity, State.adjustments);
+
+  return c.toDataURL('image/jpeg', 0.95);
 }
 
-async function handleCapture() {
-  if(!State.camActive || State.isCapturing) return;
-  State.isCapturing = true;
-  captureBtn.disabled = true;
-  const secs = parseInt($('#countdownSelect').value) || 3;
-  const mode = State.currentMode;
-  let shots = 1;
-  if(mode==='strip3') shots = 3;
-  if(mode==='strip4' || mode==='grid') shots = 4;
+/* Apply filter + adjustments to a canvas in-place */
+function applyFilterAndAdjustToCanvas(canvas, filterId, filterIntensity, adj){
+  const w=canvas.width, h=canvas.height;
+  const ctx=canvas.getContext('2d');
+  const imgData=ctx.getImageData(0,0,w,h);
+  const data=imgData.data;
 
-  const captured = [];
-  for(let i=0;i<shots;i++){
-    await countdownAndCapture(secs);
-    playShutter();
-    shutterTransition();
-    flashScreen();
-    await new Promise(r=>setTimeout(r, 300));
-    const data = captureFrameToDataURL();
-    captured.push(data);
-  }
-  State.capturedImages = captured;
-  State.isCapturing = false;
-
-  // build composite
-  await buildCompositeAndGotoEditor();
-}
-
-function buildCompositeAndGotoEditor() {
-  // Create composite image based on mode
-  const mode = State.currentMode;
-  const imgs = State.capturedImages;
-  if(!imgs.length){ toast('Tidak ada foto','error'); return; }
-
-  // Load images
-  Promise.all(imgs.map(src=>loadImage(src))).then(loaded=>{
-    const composite = composeLayout(loaded, mode, State.currentFilter, State.filterIntensity, State.adjustments, State.currentFrame, State.frameColor, State.caption, State.showDate);
-    State.currentCompositeData = composite;
-    // reset accessories (fresh capture)
-    State.accessories = [];
-    State.history = []; State.historyIndex = -1;
-    showPage('editor');
-    setTimeout(()=>renderEditor(), 100);
-  }).catch(err=>{
-    console.error(err);
-    toast('Gagal memproses foto','error');
-  });
-}
-
-/* ============ IMAGE LOADING ============ */
-function loadImage(src) {
-  return new Promise((res,rej)=>{
-    const i = new Image();
-    i.onload = ()=>res(i);
-    i.onerror = rej;
-    i.crossOrigin = 'anonymous';
-    i.src = src;
-  });
-}
-
-/* ============ FILTER + ADJUST + COMPOSE ============ */
-function applyFilterAndAdjustToCanvas(srcCanvas, filterId, filterIntensity, adj) {
-  const w = srcCanvas.width, h = srcCanvas.height;
-  const out = document.createElement('canvas');
-  out.width = w; out.height = h;
-  const ctx = out.getContext('2d');
-  ctx.drawImage(srcCanvas, 0, 0);
-
-  const imgData = ctx.getImageData(0, 0, w, h);
-  const data = imgData.data;
-
-  // 1. Apply filter (full), then blend with original based on intensity
-  const filter = FILTERS.find(f=>f.id===filterId);
-  if(filter && filter.apply){
-    // Get original copy
-    const orig = new Uint8ClampedArray(data);
-    filter.apply(data);
-    if(filterIntensity < 100){
-      const t = filterIntensity / 100;
+  const filter=FILTERS.find(f=>f.id===filterId);
+  if(filter && filter.canvas){
+    const orig=new Uint8ClampedArray(data);
+    filter.canvas(data);
+    if(filterIntensity<100){
+      const t=filterIntensity/100;
       for(let i=0;i<data.length;i++){
-        data[i] = orig[i] * (1-t) + data[i] * t;
+        data[i]=orig[i]*(1-t)+data[i]*t;
       }
     }
   }
 
-  // 2. Adjustments: brightness, contrast, saturation, warmth
-  const b = adj.brightness / 100;   // -1..1
-  const c = adj.contrast / 100;     // -1..1
-  const s = adj.saturation / 100;   // -1..1
-  const warm = adj.warmth / 100;    // -1..1
-
-  const satFactor = 1 + s;
-  const contrastFactor = (1 + c);
-  const brightOffset = b * 80;
+  // Adjustments
+  const b=adj.brightness/100;
+  const c=adj.contrast/100;
+  const s=adj.saturation/100;
+  const warm=adj.warmth/100;
+  const satF=1+s;
+  const conF=1+c;
+  const brightO=b*80;
 
   for(let i=0;i<data.length;i+=4){
-    let r = data[i], g = data[i+1], bl = data[i+2];
-    // brightness
-    r += brightOffset; g += brightOffset; bl += brightOffset;
-    // contrast
-    r = (r-128)*contrastFactor + 128;
-    g = (g-128)*contrastFactor + 128;
-    bl = (bl-128)*contrastFactor + 128;
-    // saturation via luminance
-    const lum = 0.299*r + 0.587*g + 0.114*bl;
-    r = lum + (r-lum)*satFactor;
-    g = lum + (g-lum)*satFactor;
-    bl = lum + (bl-lum)*satFactor;
-    // warmth (R up, B down)
-    r += warm * 30;
-    bl -= warm * 25;
-    data[i] = Math.min(255, Math.max(0, r));
-    data[i+1] = Math.min(255, Math.max(0, g));
-    data[i+2] = Math.min(255, Math.max(0, bl));
+    let r=data[i], g=data[i+1], bl=data[i+2];
+    r+=brightO; g+=brightO; bl+=brightO;
+    r=(r-128)*conF+128;
+    g=(g-128)*conF+128;
+    bl=(bl-128)*conF+128;
+    const lum=0.299*r+0.587*g+0.114*bl;
+    r=lum+(r-lum)*satF;
+    g=lum+(g-lum)*satF;
+    bl=lum+(bl-lum)*satF;
+    r+=warm*30; bl-=warm*25;
+    data[i]=Math.min(255,Math.max(0,r));
+    data[i+1]=Math.min(255,Math.max(0,g));
+    data[i+2]=Math.min(255,Math.max(0,bl));
   }
 
-  // 3. Grain
-  if(adj.grain > 0){
-    const gAmt = (adj.grain/100) * 60;
-    for(let i=0;i<data.length;i+=4){
-      const n = (Math.random()-0.5) * gAmt;
-      data[i] = Math.min(255, Math.max(0, data[i]+n));
-      data[i+1] = Math.min(255, Math.max(0, data[i+1]+n));
-      data[i+2] = Math.min(255, Math.max(0, data[i+2]+n));
-    }
-  }
-
-  // 4. Vignette
-  if(adj.vignette > 0){
-    const vAmt = adj.vignette / 100;
-    const cx = w/2, cy = h/2;
-    const maxDist = Math.sqrt(cx*cx + cy*cy);
-    for(let y=0;y<h;y++){
-      for(let x=0;x<w;x++){
-        const idx = (y*w + x)*4;
-        const dx = (x-cx), dy = (y-cy);
-        const dist = Math.sqrt(dx*dx+dy*dy) / maxDist;
-        const factor = 1 - (dist*dist) * vAmt * 0.9;
-        data[idx] *= factor;
-        data[idx+1] *= factor;
-        data[idx+2] *= factor;
-      }
-    }
-  }
-
-  ctx.putImageData(imgData, 0, 0);
-  return out;
+  ctx.putImageData(imgData,0,0);
 }
 
-function composeLayout(loadedImgs, mode, filterId, filterIntensity, adj, frameId, frameColor, caption, showDate) {
-  // Output dimensions (high quality)
-  const OUT_W = 1200;
-  const OUT_H = mode==='single' ? 1500 : (mode==='grid' ? 1500 : (mode==='strip3' ? 1800 : 2100));
-
-  const canvas = document.createElement('canvas');
-  canvas.width = OUT_W; canvas.height = OUT_H;
-  const ctx = canvas.getContext('2d');
-
-  // Draw frame background
-  ctx.fillStyle = frameColor || '#FFFAF4';
-  ctx.fillRect(0,0,OUT_W,OUT_H);
-
-  // Determine photo area margins based on frame
-  const frame = FRAMES.find(f=>f.id===frameId) || FRAMES[1];
-  let padding = 60;
-  if(frameId==='polaroid') padding = 80;
-  if(frameId==='black') padding = 50;
-
-  const innerW = OUT_W - padding*2;
-
-  // Build individual filtered canvases
-  const processed = loadedImgs.map(img=>{
-    const c = document.createElement('canvas');
-    const maxW = mode==='single' ? innerW : innerW;
-    // resize proportional
-    const ratio = img.width / img.height;
-    let dw = maxW, dh = maxW / ratio;
-    c.width = dw; c.height = dh;
-    const cx = c.getContext('2d');
-    cx.drawImage(img, 0, 0, dw, dh);
-    return applyFilterAndAdjustToCanvas(c, filterId, filterIntensity, adj);
-  });
-
-  if(mode==='single'){
-    const img = processed[0];
-    const maxH = OUT_H - padding*2 - (caption ? 100 : 0);
-    const ratio = img.width / img.height;
-    let dw = innerW, dh = dw / ratio;
-    if(dh > maxH){ dh = maxH; dw = dh*ratio; }
-    const dx = (OUT_W - dw)/2;
-    const dy = padding + (maxH - dh)/2;
-    ctx.drawImage(img, dx, dy, dw, dh);
-    // caption
-    if(caption){
-      ctx.fillStyle = getContrastColor(frameColor);
-      ctx.font = `italic 48px 'Caveat', cursive`;
-      ctx.textAlign = 'center';
-      ctx.fillText(caption, OUT_W/2, dy + dh + 70);
-    }
-    if(showDate){
-      ctx.fillStyle = getContrastColor(frameColor);
-      ctx.font = `24px 'DM Sans', sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.globalAlpha = 0.6;
-      ctx.fillText(formatDate(), OUT_W/2, OUT_H - 30);
-      ctx.globalAlpha = 1;
-    }
-  } else if(mode==='strip3' || mode==='strip4'){
-    const count = mode==='strip3' ? 3 : 4;
-    const gap = 20;
-    const totalGap = gap * (count-1);
-    const slotH = (OUT_H - padding*2 - totalGap - (caption?80:0)) / count;
-    let y = padding;
-    const slotW = innerW;
+/* ============ SESSION FLOW ============ */
+async function startSession(){
+  if(!State.camActive){ toast('Aktifkan kamera dulu','error'); return; }
+  if(State.isCapturing) return;
+  State.isCapturing=true;
+  startSessionBtn.disabled=true;
+  startSessionBtn.textContent='📸 CAPTURING...';
+  const secs=parseInt($('#countdownSelect').value)||5;
+  const count=State.currentTemplate.count;
+  const captured=[];
+  try{
     for(let i=0;i<count;i++){
-      const img = processed[i];
-      const ratio = img.width / img.height;
-      let dw = slotW, dh = dw/ratio;
-      if(dh > slotH){ dh = slotH; dw = dh*ratio; }
-      const dx = (OUT_W - dw)/2;
-      ctx.drawImage(img, dx, y + (slotH-dh)/2, dw, dh);
-      // thin separator
-      if(i < count-1){
-        ctx.fillStyle = 'rgba(0,0,0,0.06)';
-        ctx.fillRect(padding, y+slotH+gap/2-1, innerW, 1);
-      }
-      y += slotH + gap;
+      await countdownAndCapture(secs);
+      playShutter();
+      shutterTransition();
+      flashScreen();
+      await new Promise(r=>setTimeout(r,250));
+      const data=captureFrameToDataURL();
+      captured.push(data);
     }
-    if(caption){
-      ctx.fillStyle = getContrastColor(frameColor);
-      ctx.font = `italic 48px 'Caveat', cursive`;
-      ctx.textAlign = 'center';
-      ctx.fillText(caption, OUT_W/2, OUT_H - 30);
-    } else if(showDate){
-      ctx.fillStyle = getContrastColor(frameColor);
-      ctx.font = `24px 'DM Sans', sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.globalAlpha = 0.7;
-      ctx.fillText(formatDate(), OUT_W/2, OUT_H - 30);
-      ctx.globalAlpha = 1;
+    State.capturedImages=captured;
+    await buildFinalAndShow();
+  }catch(err){
+    console.error(err);
+    toast('Gagal capture','error');
+  }finally{
+    State.isCapturing=false;
+    startSessionBtn.disabled=false;
+    startSessionBtn.textContent='🎬 START PHOTO SESSION';
+  }
+}
+$('#startSessionBtn').addEventListener('click',startSession);
+
+/* ============ COMPOSE TEMPLATE ============ */
+async function buildFinalAndShow(){
+  setLoading(true,'Menyusun photo strip...');
+  try{
+    const imgs=await Promise.all(State.capturedImages.map(loadImg));
+    const canvas=composeTemplate(imgs, State.currentTemplate);
+    const dataURL=canvas.toDataURL('image/jpeg',0.95);
+    State.finalComposite=dataURL;
+    // show result
+    showResult(dataURL);
+  }catch(err){
+    console.error(err);
+    toast('Gagal menyusun strip','error');
+  }finally{
+    setLoading(false);
+  }
+}
+
+function loadImg(src){
+  return new Promise((res,rej)=>{
+    const i=new Image();
+    i.onload=()=>res(i);
+    i.onerror=rej;
+    i.src=src;
+  });
+}
+
+/* ============ TEMPLATE COMPOSER ============ */
+function composeTemplate(imgs, tpl){
+  const W=1000;
+  // Calculate height based on layout
+  let H;
+  const pad=tpl.padding;
+  const gap=tpl.gap;
+  
+  // Aspect ratio per photo (all same for consistency)
+  const photoAR = {'4:3':4/3,'3:4':3/4,'1:1':1,'4:5':4/5}[State.ratio] || 4/3;
+
+  if(tpl.type==='strip'){
+    // Vertical strip: photos stacked
+    const photoW = W - pad*2;
+    const photoH = photoW / photoAR;
+    const totalPhotoH = photoH*tpl.count + gap*(tpl.count-1);
+    const footerH = 90;
+    H = pad*2 + totalPhotoH + footerH;
+  } else if(tpl.type==='grid'){
+    // 2x2 grid
+    const photoW = (W - pad*2 - gap) / 2;
+    const photoH = photoW / photoAR;
+    const totalPhotoH = photoH*2 + gap;
+    const footerH = 80;
+    H = pad*2 + totalPhotoH + footerH;
+  } else if(tpl.type==='double'){
+    // Two columns of 3 photos each
+    const photoW = (W - pad*2 - gap*3) / 2;
+    const photoH = photoW / photoAR;
+    const totalPhotoH = photoH*3 + gap*2;
+    const footerH = 90;
+    H = pad*2 + totalPhotoH + footerH;
+  } else {
+    H = 1500;
+  }
+  // Clamp
+  H = Math.round(H);
+
+  const canvas=document.createElement('canvas');
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext('2d');
+
+  // bg
+  ctx.fillStyle=tpl.bg;
+  ctx.fillRect(0,0,W,H);
+
+  if(tpl.type==='strip'){
+    const photoW = W - pad*2;
+    const photoH = photoW / photoAR;
+    let y = pad;
+    for(let i=0;i<tpl.count;i++){
+      ctx.drawImage(imgs[i], pad, y, photoW, photoH);
+      // subtle photo border
+      ctx.strokeStyle='rgba(0,0,0,0.08)';
+      ctx.lineWidth=1;
+      ctx.strokeRect(pad+0.5, y+0.5, photoW-1, photoH-1);
+      y += photoH + gap;
     }
-  } else if(mode==='grid'){
-    const gap = 16;
-    const cols = 2, rows = 2;
-    const cellW = (innerW - gap) / cols;
-    const cellH = (OUT_H - padding*2 - gap - (caption?100:0)) / rows;
+    // Footer
+    drawTemplateFooter(ctx, W, H, pad, tpl);
+  } else if(tpl.type==='grid'){
+    const photoW = (W - pad*2 - gap)/2;
+    const photoH = photoW / photoAR;
     for(let i=0;i<4;i++){
-      const r = Math.floor(i/2), c = i%2;
-      const x = padding + c*(cellW+gap);
-      const y = padding + r*(cellH+gap);
-      const img = processed[i];
-      const ratio = img.width / img.height;
-      let dw = cellW, dh = dw/ratio;
-      if(dh > cellH){ dh = cellH; dw = dh*ratio; }
-      ctx.drawImage(img, x + (cellW-dw)/2, y + (cellH-dh)/2, dw, dh);
+      const col=i%2, row=Math.floor(i/2);
+      const x = pad + col*(photoW+gap);
+      const y = pad + row*(photoH+gap);
+      ctx.drawImage(imgs[i], x, y, photoW, photoH);
+      ctx.strokeStyle='rgba(0,0,0,0.08)';
+      ctx.lineWidth=1;
+      ctx.strokeRect(x+0.5,y+0.5,photoW-1,photoH-1);
     }
-    if(caption){
-      ctx.fillStyle = getContrastColor(frameColor);
-      ctx.font = `italic 48px 'Caveat', cursive`;
-      ctx.textAlign = 'center';
-      ctx.fillText(caption, OUT_W/2, OUT_H - 40);
+    drawTemplateFooter(ctx, W, H, pad, tpl);
+  } else if(tpl.type==='double'){
+    const photoW = (W - pad*2 - gap*3)/2;
+    const photoH = photoW / photoAR;
+    for(let i=0;i<6;i++){
+      const col = i<3 ? 0 : 1;
+      const row = i%3;
+      const x = pad + col*(photoW+gap*2);
+      const y = pad + row*(photoH+gap);
+      ctx.drawImage(imgs[i], x, y, photoW, photoH);
+      ctx.strokeStyle='rgba(0,0,0,0.08)';
+      ctx.lineWidth=1;
+      ctx.strokeRect(x+0.5,y+0.5,photoW-1,photoH-1);
     }
+    drawTemplateFooter(ctx, W, H, pad, tpl);
   }
 
-  // Apply frame decorations (borders etc)
-  drawFrameDecoration(ctx, OUT_W, OUT_H, frameId, frameColor);
+  // Decorative frame edges
+  drawDecorativeFrame(ctx, W, H, tpl);
 
-  return canvas.toDataURL('image/jpeg', 0.95);
+  return canvas;
 }
 
-function drawFrameDecoration(ctx, w, h, frameId, color) {
-  const dark = getContrastColor(color);
-  if(frameId==='polaroid'){
-    // bottom border already via padding; add subtle grain lines
-    ctx.strokeStyle = 'rgba(0,0,0,0.06)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(2,2,w-4,h-4);
+function drawTemplateFooter(ctx, W, H, pad, tpl){
+  const footerY = H - 70;
+  const accent = tpl.accent || '#49372D';
+  ctx.fillStyle = accent;
+  ctx.textAlign='center';
+
+  if(tpl.labelStyle==='korean'){
+    ctx.font='bold 28px "Playfair Display", serif';
+    ctx.fillText('AFTERGLOW', W/2, footerY);
+    ctx.font='16px "DM Sans", sans-serif';
+    ctx.globalAlpha=0.65;
+    ctx.fillText(formatDate()+' · Photo Booth', W/2, footerY+26);
+    ctx.globalAlpha=1;
+  } else if(tpl.labelStyle==='classic'){
+    ctx.font='bold 24px "Playfair Display", serif';
+    ctx.fillText('PHOTO BOOTH', W/2, footerY);
+    ctx.font='14px "DM Sans", sans-serif';
+    ctx.globalAlpha=0.6;
+    ctx.fillText(formatDate(), W/2, footerY+24);
+    ctx.globalAlpha=1;
+  } else if(tpl.labelStyle==='retro'){
+    ctx.font='18px "DM Sans", monospace';
+    ctx.globalAlpha=0.8;
+    ctx.fillText('▶ '+formatDate()+' ◀', W/2, footerY+8);
+    ctx.font='italic 22px "Caveat", cursive';
+    ctx.fillText('memories', W/2, footerY+36);
+    ctx.globalAlpha=1;
+  } else if(tpl.labelStyle==='minimal'){
+    ctx.font='12px "DM Sans", sans-serif';
+    ctx.globalAlpha=0.5;
+    ctx.fillText(formatDate(), W/2, footerY+10);
+    ctx.globalAlpha=1;
+  } else if(tpl.labelStyle==='double'){
+    ctx.font='bold 22px "Playfair Display", serif';
+    ctx.fillText('AFTERGLOW STUDIO', W/2, footerY+6);
+    ctx.font='13px "DM Sans", sans-serif';
+    ctx.globalAlpha=0.6;
+    ctx.fillText(formatDate(), W/2, footerY+28);
+    ctx.globalAlpha=1;
+  } else if(tpl.labelStyle==='square'){
+    ctx.font='bold 22px "Playfair Display", serif';
+    ctx.fillText('AFTERGLOW', W/2, footerY+6);
+    ctx.font='13px "DM Sans", sans-serif';
+    ctx.globalAlpha=0.65;
+    ctx.fillText(formatDate(), W/2, footerY+28);
+    ctx.globalAlpha=1;
+  } else if(tpl.labelStyle==='premium'){
+    ctx.font='bold 26px "Playfair Display", serif';
+    ctx.fillStyle='#FFFAF4';
+    ctx.fillText('AFTERGLOW', W/2, footerY);
+    ctx.font='13px "DM Sans", sans-serif';
+    ctx.globalAlpha=0.7;
+    ctx.fillText('PREMIUM STUDIO · '+formatDate(), W/2, footerY+26);
+    ctx.globalAlpha=1;
   }
-  if(frameId==='vintage_film'){
-    // film strip holes on left/right
-    const holeW = 30, holeH = 20, gap = 20;
-    ctx.fillStyle = 'rgba(0,0,0,0.85)';
-    ctx.fillRect(0,0,holeW,h);
-    ctx.fillRect(w-holeW,0,holeW,h);
-    ctx.fillStyle = color;
-    for(let y=20;y<h-20;y+=gap+holeH){
-      ctx.fillRect(6, y, holeW-12, holeH);
-      ctx.fillRect(w-holeW+6, y, holeW-12, holeH);
-    }
-  }
-  if(frameId==='black'){
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(20,20,w-40,h-40);
-  }
-  if(frameId==='newspaper'){
-    ctx.strokeStyle = 'rgba(0,0,0,0.15)';
-    ctx.lineWidth = 1;
-    for(let i=0;i<20;i++){
+}
+
+function drawDecorativeFrame(ctx, W, H, tpl){
+  if(tpl.id==='retro_4'){
+    // vintage timestamp
+    ctx.fillStyle='rgba(139,69,19,0.85)';
+    ctx.font='bold 20px "DM Sans", monospace';
+    ctx.textAlign='right';
+    ctx.fillText(formatDate().toUpperCase(), W-60, 60);
+    // corner ticks
+    ctx.strokeStyle='rgba(139,69,19,0.4)';
+    ctx.lineWidth=2;
+    [[50,50],[W-50,50],[50,H-50],[W-50,H-50]].forEach(([x,y])=>{
       ctx.beginPath();
-      ctx.moveTo(0, i*40 + Math.random()*10);
-      ctx.lineTo(w, i*40 + Math.random()*10);
+      ctx.moveTo(x-15,y);
+      ctx.lineTo(x+15,y);
+      ctx.moveTo(x,y-15);
+      ctx.lineTo(x,y+15);
       ctx.stroke();
-    }
+    });
   }
-  if(frameId==='love'){
-    ctx.fillStyle = '#ffb3c6';
-    for(let i=0;i<12;i++){
-      ctx.beginPath();
-      const x = Math.random()*w, y = Math.random()*h;
-      ctx.arc(x, y, 4, 0, Math.PI*2);
-      ctx.fill();
-    }
+  if(tpl.id==='premium_4'){
+    ctx.strokeStyle='rgba(255,250,244,0.15)';
+    ctx.lineWidth=1;
+    ctx.strokeRect(20,20,W-40,H-40);
   }
-}
-
-function getContrastColor(hex){
-  const c = hex.replace('#','');
-  const r = parseInt(c.substr(0,2),16), g = parseInt(c.substr(2,2),16), b = parseInt(c.substr(4,2),16);
-  const lum = (0.299*r + 0.587*g + 0.114*b) / 255;
-  return lum > 0.6 ? '#49372D' : '#F7F1E9';
+  if(tpl.id==='minimal_4'){
+    ctx.strokeStyle='rgba(0,0,0,0.15)';
+    ctx.lineWidth=1;
+    ctx.strokeRect(15,15,W-30,H-30);
+  }
+  if(tpl.id==='korean_4'){
+    // rounded corners look (subtle)
+    ctx.strokeStyle='rgba(73,55,45,0.08)';
+    ctx.lineWidth=1;
+    ctx.strokeRect(15,15,W-30,H-30);
+  }
 }
 
 function formatDate(){
-  const d = new Date();
-  const opts = { year:'numeric', month:'short', day:'numeric' };
-  return d.toLocaleDateString('id-ID', opts);
+  return new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
 }
 
-/* ============ FILTER UI RENDERING ============ */
-function renderFilterGrid(containerId, currentFilterId, onSelect) {
-  const container = $('#'+containerId);
-  if(!container) return;
-  container.innerHTML = '';
-  const cat = container.dataset.cat || 'all';
-  const list = FILTERS.filter(f=>{
-    if(cat==='all') return f.id!=='none';
-    return f.cat===cat || f.id==='none';
-  });
-  list.forEach(f=>{
-    const item = document.createElement('div');
-    item.className = 'filter-item' + (f.id===currentFilterId ? ' active' : '');
-    item.dataset.filterId = f.id;
-    // preview: render tiny swatch from a generic gradient
-    const preview = document.createElement('div');
-    preview.className = 'fi-preview';
-    // use a tiny gradient as bg + label
-    preview.style.background = `linear-gradient(135deg, #DCCBBC, #A65F43)`;
-    preview.style.position = 'relative';
-    item.appendChild(preview);
-    const name = document.createElement('div');
-    name.className = 'fi-name';
-    name.textContent = f.name;
-    item.appendChild(name);
-    // favorite button
-    const fav = document.createElement('button');
-    fav.className = 'fi-fav' + (State.favorites.includes(f.id) ? ' on' : '');
-    fav.textContent = '♥';
-    fav.title = 'Favorite';
-    fav.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      const idx = State.favorites.indexOf(f.id);
-      if(idx>=0) State.favorites.splice(idx,1); else State.favorites.push(f.id);
-      fav.classList.toggle('on');
-      localStorage.setItem('ag_favorites', JSON.stringify(State.favorites));
-    });
-    item.appendChild(fav);
-    item.addEventListener('click', ()=>{
-      onSelect(f.id);
-      // update active states
-      $$('.filter-item', container).forEach(el=>el.classList.toggle('active', el.dataset.filterId===f.id));
-    });
-    container.appendChild(item);
-  });
+/* ============ RESULT SCREEN ============ */
+function showResult(dataURL){
+  const screen=$('#resultScreen');
+  const preview=$('#resultPreview');
+  preview.innerHTML=`<img src="${dataURL}" alt="Hasil photo strip">`;
+  screen.classList.add('show');
 }
-
-/* Home preview: sample filter gradients */
-function renderHomeFilterPreview() {
-  const wrap = $('#homeFilterPreview');
-  if(!wrap) return;
-  const picks = ['kodak_portra','golden_hour','bw','cinematic','korean_soft','sepia','peachy_glow','fuji_400'];
-  picks.forEach(id=>{
-    const f = FILTERS.find(x=>x.id===id);
-    if(!f) return;
-    const card = document.createElement('div');
-    card.className = 'fp-card';
-    const grad = filterPreviewGradient(id);
-    card.innerHTML = `<div style="width:100%;height:100%;background:${grad}"></div><span>${f.name}</span>`;
-    wrap.appendChild(card);
-  });
-}
-function filterPreviewGradient(id) {
-  const map = {
-    kodak_portra: 'linear-gradient(135deg,#e8b98a,#a65f43)',
-    golden_hour: 'linear-gradient(135deg,#f4c87a,#c97a3a)',
-    bw: 'linear-gradient(135deg,#ddd,#444)',
-    cinematic: 'linear-gradient(135deg,#3a4a5a,#a65f43)',
-    korean_soft: 'linear-gradient(135deg,#f5e6e0,#d4c4bc)',
-    sepia: 'linear-gradient(135deg,#c9a37a,#6b4a2f)',
-    peachy_glow: 'linear-gradient(135deg,#ffd4c4,#e88f7a)',
-    fuji_400: 'linear-gradient(135deg,#b8c4a0,#7a8a5a)'
-  };
-  return map[id] || 'linear-gradient(135deg,#DCCBBC,#A65F43)';
-}
-
-/* ============ BOOTH PANEL EVENTS ============ */
-// Panel tabs
-$$('#panelTabs .panel-tab').forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    $$('#panelTabs .panel-tab').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    $$('.panel-view', $('.side-panel .panel-body')).forEach(v=>v.classList.remove('active'));
-    // find matching view within first side panel
-    const panelBody = tab.closest('.side-panel').querySelector('.panel-body');
-    $$('.panel-view', panelBody).forEach(v=>v.classList.remove('active'));
-    const view = panelBody.querySelector(`[data-view="${tab.dataset.panel}"]`);
-    if(view) view.classList.add('active');
-  });
+$('#resultClose').addEventListener('click',()=>{
+  $('#resultScreen').classList.remove('show');
 });
-
-// Mode selection
-$$('#modeGrid .mode-card').forEach(card=>{
-  card.addEventListener('click', ()=>{
-    $$('#modeGrid .mode-card').forEach(c=>c.classList.remove('active'));
-    card.classList.add('active');
-    State.currentMode = card.dataset.mode;
-    toast('Mode: ' + card.querySelector('.mc-title').textContent);
-  });
+$('#retakeBtn').addEventListener('click',()=>{
+  $('#resultScreen').classList.remove('show');
+  State.capturedImages=[];
+  State.finalComposite=null;
+  toast('Siap retake — tekan START PHOTO SESSION');
 });
-
-// Filter category tabs (booth)
-$$('#filterCats .fcat').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    $$('#filterCats .fcat').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const grid = $('#filterGrid');
-    grid.dataset.cat = btn.dataset.cat;
-    renderFilterGrid('filterGrid', State.currentFilter, onBoothFilterSelect);
-  });
-});
-
-function onBoothFilterSelect(id){
-  State.currentFilter = id;
-  toast('Filter: ' + (FILTERS.find(f=>f.id===id)?.name || id));
-}
-
-// filter intensity
-$('#filterIntensity').addEventListener('input', e=>{
-  State.filterIntensity = parseInt(e.target.value);
-  $('#filterIntVal').textContent = State.filterIntensity + '%';
-});
-
-// Adjust sliders
-['brightness','contrast','saturation','warmth','grain','vignette'].forEach(k=>{
-  const el = $('#'+k);
-  if(!el) return;
-  el.addEventListener('input', e=>{
-    State.adjustments[k] = parseInt(e.target.value);
-    const shortMap = {brightness:'brVal',contrast:'coVal',saturation:'saVal',warmth:'waVal',grain:'grVal',vignette:'viVal'};
-    const label = $('#'+shortMap[k]);
-    if(label) label.textContent = e.target.value;
-  });
-});
-
-// Reset adjustments
-$('#resetAdjustBtn').addEventListener('click', ()=>{
-  State.adjustments = {brightness:0,contrast:0,saturation:0,warmth:0,grain:0,vignette:0};
-  ['brightness','contrast','saturation','warmth','grain','vignette'].forEach(k=>{
-    $('#'+k).value = 0;
-  });
-  const shortMap = {brightness:'brVal',contrast:'coVal',saturation:'saVal',warmth:'waVal',grain:'grVal',vignette:'viVal'};
-  Object.values(shortMap).forEach(id=>{ const el = $('#'+id); if(el) el.textContent = '0'; });
-  toast('Adjustment di-reset');
-});
-
-// Reset filter
-$('#resetFilterBtn').addEventListener('click', ()=>{
-  State.currentFilter = 'none';
-  State.filterIntensity = 100;
-  $('#filterIntensity').value = 100;
-  $('#filterIntVal').textContent = '100%';
-  renderFilterGrid('filterGrid', 'none', onBoothFilterSelect);
-  toast('Filter di-reset');
-});
-
-// Frame selection (booth)
-function renderFrameGrid(containerId, currentId, onSelect) {
-  const container = $('#'+containerId);
-  if(!container) return;
-  container.innerHTML = '';
-  FRAMES.forEach(f=>{
-    const item = document.createElement('div');
-    item.className = 'frame-item' + (f.id===currentId ? ' active' : '');
-    item.innerHTML = `
-      <div class="fc-preview" style="background:${f.color}"></div>
-      <div class="fc-name">${f.name}</div>
-    `;
-    item.addEventListener('click', ()=>{
-      onSelect(f.id);
-      $$('.frame-item', container).forEach(el=>el.classList.remove('active'));
-      item.classList.add('active');
-    });
-    container.appendChild(item);
-  });
-}
-function onBoothFrameSelect(id) {
-  State.currentFrame = id;
-  const f = FRAMES.find(x=>x.id===id);
-  if(f) State.frameColor = f.color;
-  // update color swatches active
-  updateFrameColorSwatches();
-  toast('Frame: ' + (f?.name || id));
-}
-function renderFrameColors(containerId, activeColor, onSelect) {
-  const c = $('#'+containerId);
-  if(!c) return;
-  c.innerHTML = '';
-  FRAME_COLORS.forEach(col=>{
-    const s = document.createElement('div');
-    s.className = 'swatch' + (col.toLowerCase()===activeColor.toLowerCase()?' active':'');
-    s.style.background = col;
-    s.dataset.color = col;
-    s.addEventListener('click', ()=>{
-      onSelect(col);
-      $$('.swatch', c).forEach(el=>el.classList.remove('active'));
-      s.classList.add('active');
-    });
-    c.appendChild(s);
-  });
-}
-function updateFrameColorSwatches(){
-  $$('#frameColors .swatch').forEach(s=>{
-    s.classList.toggle('active', s.dataset.color.toLowerCase()===State.frameColor.toLowerCase());
-  });
-  $$('#edFrameColors .swatch').forEach(s=>{
-    s.classList.toggle('active', s.dataset.color.toLowerCase()===State.frameColor.toLowerCase());
-  });
-}
-
-// Caption & date
-$('#frameCaption').addEventListener('input', e=>{ State.caption = e.target.value; });
-$('#captionFont').addEventListener('change', e=>{ State.captionFont = e.target.value; });
-$('#captionPos').addEventListener('change', e=>{ State.captionPos = e.target.value; });
-$('#showDate').addEventListener('change', e=>{ State.showDate = e.target.checked; });
-
-// Accessory categories (booth)
-$$('[data-acc-cat]').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    $$('[data-acc-cat]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    renderStickerGrid(btn.dataset.accCat);
-  });
-});
-function renderStickerGrid(cat) {
-  const grid = $('#stickerGrid');
-  grid.innerHTML = '';
-  const items = ACCESSORIES[cat] || [];
-  items.forEach(it=>{
-    const el = document.createElement('div');
-    el.className = 'sticker-item';
-    if(cat==='text'){
-      el.innerHTML = `<div class="st-name" style="font-size:.7rem">${it.text}</div>`;
-      el.addEventListener('click', ()=>addAccessoryToState('text', it.text));
-    } else {
-      el.innerHTML = `<div class="st-emoji">${it.emoji}</div><div class="st-name">${it.name}</div>`;
-      el.addEventListener('click', ()=>addAccessoryToState('emoji', it.emoji));
-    }
-    grid.appendChild(el);
-  });
-}
-$('#addCustomTextBtn').addEventListener('click', ()=>{
-  const val = $('#customTextInput').value.trim();
-  if(!val){ toast('Teks kosong','error'); return; }
-  addAccessoryToState('text', val);
-  $('#customTextInput').value = '';
-});
-function addAccessoryToState(type, content) {
-  const id = 'acc_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
-  State.accessories.push({
-    id, type, content,
-    x: 50, y: 50, // percent
-    size: type==='emoji' ? 60 : 30, // px on canvas
-    rotation: 0,
-    opacity: 1,
-    color: '#49372D',
-    fontSize: type==='text' ? 40 : 0,
-    font: "'Caveat',cursive"
-  });
-  toast('Ditambahkan ke editor ✓');
-}
-
-// Capture
-captureBtn.addEventListener('click', handleCapture);
-
-/* ============ EDITOR ============ */
-let editorOriginalImg = null; // Image object of composite
-let editorRotation = 0;
-let editorFlip = false;
-
-function renderEditor() {
-  if(!State.currentCompositeData){
-    toast('Belum ada foto. Silakan ambil foto terlebih dahulu.','error');
-    showPage('booth');
-    return;
-  }
-  loadImage(State.currentCompositeData).then(img=>{
-    editorOriginalImg = img;
-    editorRotation = 0;
-    editorFlip = false;
-    drawEditorCanvas();
-    renderAccessoryDOM();
-    // render filter grid for editor
-    renderFilterGrid('edFilterGrid', State.currentFilter, onEditorFilterSelect);
-    renderFrameGrid('edFrameGrid', State.currentFrame, onEditorFrameSelect);
-    renderFrameColors('edFrameColors', State.frameColor, onEditorFrameColorSelect);
-    // restore inputs
-    $('#edFrameCaption').value = State.caption;
-    $('#edShowDate').checked = State.showDate;
-    $('#edFilterIntensity').value = State.filterIntensity;
-    $('#edFilterIntVal').textContent = State.filterIntensity + '%';
-    // adjust labels
-    const s = State.adjustments;
-    $('#edBrightness').value = s.brightness; $('#edBrVal').textContent = s.brightness;
-    $('#edContrast').value = s.contrast; $('#edCoVal').textContent = s.contrast;
-    $('#edSaturation').value = s.saturation; $('#edSaVal').textContent = s.saturation;
-    $('#edWarmth').value = s.warmth; $('#edWaVal').textContent = s.warmth;
-    $('#edGrain').value = s.grain; $('#edGrVal').textContent = s.grain;
-    $('#edVignette').value = s.vignette; $('#edViVal').textContent = s.vignette;
-  }).catch(err=>{
-    console.error(err);
-    toast('Gagal memuat foto','error');
-  });
-}
-
-function drawEditorCanvas() {
-  if(!editorOriginalImg) return;
-  const canvas = $('#editorCanvas');
-  const ctx = canvas.getContext('2d');
-  // Display at reasonable size
-  const maxW = 640, maxH = 800;
-  let w = editorOriginalImg.width, h = editorOriginalImg.height;
-  const ratio = Math.min(maxW/w, maxH/h, 1);
-  w = Math.round(w*ratio); h = Math.round(h*ratio);
-  canvas.width = w; canvas.height = h;
-  canvas.style.width = w + 'px';
-  canvas.style.height = h + 'px';
-
-  ctx.clearRect(0,0,w,h);
-  ctx.save();
-  ctx.translate(w/2, h/2);
-  ctx.rotate(editorRotation * Math.PI / 180);
-  ctx.scale(editorFlip ? -1 : 1, 1);
-  ctx.drawImage(editorOriginalImg, -w/2, -h/2, w, h);
-  ctx.restore();
-
-  // store display size for accessory positioning
-  canvas.dataset.dw = w;
-  canvas.dataset.dh = h;
-
-  // Update accessory layer size
-  const layer = $('#accessoryLayer');
-  layer.style.width = w + 'px';
-  layer.style.height = h + 'px';
-  layer.style.left = '50%';
-  layer.style.top = '50%';
-  layer.style.transform = 'translate(-50%,-50%)';
-  layer.style.position = 'absolute';
-}
-
-// Rebuild composite with current state and update editor
-function rebuildEditor() {
-  if(!State.capturedImages.length) return;
-  Promise.all(State.capturedImages.map(src=>loadImage(src))).then(loaded=>{
-    const composite = composeLayout(loaded, State.currentMode, State.currentFilter, State.filterIntensity, State.adjustments, State.currentFrame, State.frameColor, State.caption, State.showDate);
-    State.currentCompositeData = composite;
-    loadImage(composite).then(img=>{
-      editorOriginalImg = img;
-      drawEditorCanvas();
-      renderAccessoryDOM();
-    });
-  });
-}
-
-// Editor panel tabs
-$$('[data-edpanel]').forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    $$('[data-edpanel]').forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    const panelBody = tab.closest('.side-panel').querySelector('.panel-body');
-    $$('.panel-view', panelBody).forEach(v=>v.classList.remove('active'));
-    const view = panelBody.querySelector(`[data-edview="${tab.dataset.edpanel}"]`);
-    if(view) view.classList.add('active');
-  });
-});
-
-// Editor filter category
-$$('#edFilterCats .fcat').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    $$('#edFilterCats .fcat').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    $('#edFilterGrid').dataset.cat = btn.dataset.cat;
-    renderFilterGrid('edFilterGrid', State.currentFilter, onEditorFilterSelect);
-  });
-});
-function onEditorFilterSelect(id) {
-  State.currentFilter = id;
-  rebuildEditor();
-  toast('Filter: ' + (FILTERS.find(f=>f.id===id)?.name || id));
-}
-
-$('#edFilterIntensity').addEventListener('input', e=>{
-  State.filterIntensity = parseInt(e.target.value);
-  $('#edFilterIntVal').textContent = State.filterIntensity + '%';
-});
-$('#edFilterIntensity').addEventListener('change', ()=>rebuildEditor());
-
-// Editor adjust sliders
-['edBrightness','edContrast','edSaturation','edWarmth','edGrain','edVignette'].forEach(id=>{
-  const el = $('#'+id);
-  if(!el) return;
-  const keyMap = {edBrightness:'brightness',edContrast:'contrast',edSaturation:'saturation',edWarmth:'warmth',edGrain:'grain',edVignette:'vignette'};
-  const labelMap = {edBrightness:'edBrVal',edContrast:'edCoVal',edSaturation:'edSaVal',edWarmth:'edWaVal',edGrain:'edGrVal',edVignette:'edViVal'};
-  el.addEventListener('input', e=>{
-    State.adjustments[keyMap[id]] = parseInt(e.target.value);
-    $('#'+labelMap[id]).textContent = e.target.value;
-  });
-  el.addEventListener('change', ()=>rebuildEditor());
-});
-
-function onEditorFrameSelect(id) {
-  State.currentFrame = id;
-  const f = FRAMES.find(x=>x.id===id);
-  if(f){ State.frameColor = f.color; updateFrameColorSwatches(); }
-  rebuildEditor();
-  toast('Frame: ' + (f?.name || id));
-}
-function onEditorFrameColorSelect(col) {
-  State.frameColor = col;
-  rebuildEditor();
-}
-$('#edFrameCaption').addEventListener('input', e=>{
-  State.caption = e.target.value;
-});
-$('#edFrameCaption').addEventListener('change', ()=>rebuildEditor());
-$('#edShowDate').addEventListener('change', e=>{
-  State.showDate = e.target.checked;
-  rebuildEditor();
-});
-
-// Editor toolbar
-$$('.et-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const act = btn.dataset.edit;
-    if(act==='rotate'){ editorRotation = (editorRotation + 90) % 360; drawEditorCanvas(); }
-    if(act==='flip'){ editorFlip = !editorFlip; drawEditorCanvas(); }
-    if(act==='addSticker'){ showPage('booth'); setTimeout(()=>{
-      // switch to accessory tab
-      $$('#panelTabs .panel-tab').forEach(t=>t.classList.remove('active'));
-      $('[data-panel="accessory"]').classList.add('active');
-      $$('.panel-view').forEach(v=>v.classList.remove('active'));
-      $('[data-view="accessory"]').classList.add('active');
-      toast('Pilih stiker, lalu ambil foto ulang atau kembali ke editor');
-    }, 200); }
-    if(act==='addText'){
-      const t = prompt('Tulis teks:');
-      if(t) addAccessoryToState('text', t);
-    }
-  });
-});
-
-/* ============ ACCESSORY RENDERING IN EDITOR ============ */
-function renderAccessoryDOM() {
-  const layer = $('#accessoryLayer');
-  layer.innerHTML = '';
-  const canvas = $('#editorCanvas');
-  const dw = parseFloat(canvas.dataset.dw) || canvas.width;
-  const dh = parseFloat(canvas.dataset.dh) || canvas.height;
-  State.accessories.forEach(acc=>{
-    const el = document.createElement('div');
-    el.className = 'acc-item';
-    el.dataset.accId = acc.id;
-    el.style.left = acc.x + '%';
-    el.style.top = acc.y + '%';
-    el.style.transform = `translate(-50%,-50%) rotate(${acc.rotation}deg)`;
-    el.style.opacity = acc.opacity;
-    el.style.width = (acc.size / dw * 100) + '%';
-    if(acc.type==='emoji'){
-      el.style.height = 'auto';
-      el.innerHTML = `<span class="acc-content" style="font-size:${acc.size}px;line-height:1">${acc.content}</span>`;
-    } else {
-      el.innerHTML = `<span class="acc-content" style="font-size:${acc.size}px;font-family:${acc.font};color:${acc.color};white-space:nowrap">${acc.content}</span>`;
-    }
-    // controls
-    const ctrl = document.createElement('div');
-    ctrl.className = 'acc-controls';
-    ctrl.innerHTML = `
-      <button data-act="rot" title="Putar">↻</button>
-      <button data-act="del" title="Hapus">✕</button>
-    `;
-    el.appendChild(ctrl);
-    const resize = document.createElement('div');
-    resize.className = 'acc-resize';
-    el.appendChild(resize);
-
-    // events
-    el.addEventListener('pointerdown', e=>onAccPointerDown(e, acc, el));
-    ctrl.querySelector('[data-act="rot"]').addEventListener('click', e=>{
-      e.stopPropagation();
-      acc.rotation = (acc.rotation + 15) % 360;
-      renderAccessoryDOM();
-    });
-    ctrl.querySelector('[data-act="del"]').addEventListener('click', e=>{
-      e.stopPropagation();
-      State.accessories = State.accessories.filter(a=>a.id!==acc.id);
-      renderAccessoryDOM();
-    });
-    resize.addEventListener('pointerdown', e=>onAccResizeDown(e, acc, el));
-
-    layer.appendChild(el);
-  });
-}
-
-function onAccPointerDown(e, acc, el) {
-  if(e.target.closest('.acc-controls') || e.target.classList.contains('acc-resize')) return;
-  e.preventDefault();
-  el.setPointerCapture(e.pointerId);
-  // select
-  $$('.acc-item', $('#accessoryLayer')).forEach(x=>x.classList.remove('selected'));
-  el.classList.add('selected');
-
-  const layer = $('#accessoryLayer');
-  const rect = layer.getBoundingClientRect();
-  const startX = e.clientX, startY = e.clientY;
-  const startAccX = acc.x, startAccY = acc.y;
-
-  const onMove = ev=>{
-    const dx = (ev.clientX - startX) / rect.width * 100;
-    const dy = (ev.clientY - startY) / rect.height * 100;
-    acc.x = Math.max(0, Math.min(100, startAccX + dx));
-    acc.y = Math.max(0, Math.min(100, startAccY + dy));
-    el.style.left = acc.x + '%';
-    el.style.top = acc.y + '%';
-  };
-  const onUp = ()=>{
-    document.removeEventListener('pointermove', onMove);
-    document.removeEventListener('pointerup', onUp);
-  };
-  document.addEventListener('pointermove', onMove);
-  document.addEventListener('pointerup', onUp);
-}
-
-function onAccResizeDown(e, acc, el) {
-  e.preventDefault();
-  e.stopPropagation();
-  const startX = e.clientX;
-  const startSize = acc.size;
-  const onMove = ev=>{
-    const delta = (ev.clientX - startX) * 1.5;
-    acc.size = Math.max(20, Math.min(300, startSize + delta));
-    const canvas = $('#editorCanvas');
-    const dw = parseFloat(canvas.dataset.dw) || canvas.width;
-    el.style.width = (acc.size / dw * 100) + '%';
-    if(acc.type==='emoji'){
-      const span = el.querySelector('.acc-content');
-      if(span) span.style.fontSize = acc.size + 'px';
-    } else {
-      const span = el.querySelector('.acc-content');
-      if(span) span.style.fontSize = acc.size + 'px';
-    }
-  };
-  const onUp = ()=>{
-    document.removeEventListener('pointermove', onMove);
-    document.removeEventListener('pointerup', onUp);
-  };
-  document.addEventListener('pointermove', onMove);
-  document.addEventListener('pointerup', onUp);
-}
-
-/* ============ FINAL RENDER WITH ACCESSORIES ============ */
-function renderFinalComposite() {
-  return new Promise((resolve)=>{
-    if(!editorOriginalImg){ resolve(null); return; }
-    const canvas = document.createElement('canvas');
-    // Use high resolution based on original composite
-    canvas.width = editorOriginalImg.width;
-    canvas.height = editorOriginalImg.height;
-    const ctx = canvas.getContext('2d');
-
-    // Draw base composite with rotation/flip applied
-    ctx.save();
-    ctx.translate(canvas.width/2, canvas.height/2);
-    ctx.rotate(editorRotation * Math.PI / 180);
-    ctx.scale(editorFlip ? -1 : 1, 1);
-    ctx.drawImage(editorOriginalImg, -canvas.width/2, -canvas.height/2, canvas.width, canvas.height);
-    ctx.restore();
-
-    // Draw accessories
-    const dw = canvas.width, dh = canvas.height;
-    State.accessories.forEach(acc=>{
-      ctx.save();
-      ctx.globalAlpha = acc.opacity;
-      const x = acc.x / 100 * dw;
-      const y = acc.y / 100 * dh;
-      ctx.translate(x, y);
-      ctx.rotate(acc.rotation * Math.PI / 180);
-      if(acc.type==='emoji'){
-        ctx.font = `${acc.size * (dw/640)}px serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(acc.content, 0, 0);
-      } else {
-        ctx.font = `italic ${acc.size * (dw/640)}px ${acc.font}`;
-        ctx.fillStyle = acc.color;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(acc.content, 0, 0);
-      }
-      ctx.restore();
-    });
-
-    resolve(canvas.toDataURL('image/jpeg', 0.95));
-  });
-}
 
 /* ============ DOWNLOAD ============ */
-$('#downloadBtn').addEventListener('click', async ()=>{
-  setLoading(true, 'Menyiapkan download...');
-  try {
-    const dataURL = await renderFinalComposite();
-    if(!dataURL){ toast('Tidak ada foto','error'); setLoading(false); return; }
-    const fmt = $('#exportFormat').value;
-    const quality = parseFloat($('#exportQuality').value);
-    // Re-encode if needed
-    let finalURL = dataURL;
-    if(fmt==='png'){
-      const img = await loadImage(dataURL);
-      const c = document.createElement('canvas');
-      c.width = img.width; c.height = img.height;
-      c.getContext('2d').drawImage(img,0,0);
-      finalURL = c.toDataURL('image/png');
-    } else {
-      const img = await loadImage(dataURL);
-      const c = document.createElement('canvas');
-      c.width = img.width; c.height = img.height;
-      c.getContext('2d').drawImage(img,0,0);
-      finalURL = c.toDataURL('image/jpeg', quality);
-    }
-    const a = document.createElement('a');
-    a.href = finalURL;
-    const ts = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
-    a.download = `afterglow_${ts}.${fmt}`;
+$('#downloadBtn').addEventListener('click',async()=>{
+  if(!State.finalComposite){ toast('Belum ada hasil','error'); return; }
+  setLoading(true,'Menyiapkan download...');
+  try{
+    const a=document.createElement('a');
+    a.href=State.finalComposite;
+    const ts=new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
+    a.download=`afterglow_${State.currentTemplate.id}_${ts}.jpg`;
     document.body.appendChild(a);
     a.click();
     a.remove();
-    toast('Foto berhasil di-download ✓','success');
-  } catch(err){
+    toast('Download dimulai ✓','success');
+  }catch(err){
     console.error(err);
     toast('Gagal download','error');
-  } finally {
+  }finally{
     setLoading(false);
   }
 });
 
 /* ============ SAVE TO GALLERY ============ */
-$('#saveGalleryBtn').addEventListener('click', async ()=>{
-  setLoading(true, 'Menyimpan ke gallery...');
-  try {
-    const dataURL = await renderFinalComposite();
-    if(!dataURL){ toast('Tidak ada foto','error'); setLoading(false); return; }
-    const gallery = getGallery();
-    // Limit gallery size (max 20 to prevent localStorage overflow)
-    if(gallery.length >= 20){
-      toast('Gallery penuh (max 20). Hapus foto lama.','error');
+const GALLERY_KEY='ag_gallery_v2';
+function getGallery(){
+  try{return JSON.parse(localStorage.getItem(GALLERY_KEY)||'[]');}catch(e){return[];}
+}
+function saveGallery(g){
+  try{localStorage.setItem(GALLERY_KEY,JSON.stringify(g));}
+  catch(e){toast('Storage penuh','error');}
+}
+
+$('#saveGalleryBtn').addEventListener('click',async()=>{
+  if(!State.finalComposite){ toast('Belum ada hasil','error'); return; }
+  setLoading(true,'Menyimpan...');
+  try{
+    const gallery=getGallery();
+    if(gallery.length>=20){
+      toast('Gallery penuh (max 20)','error');
       setLoading(false);
       return;
     }
-    // Optimize: resize to max 800px to save storage
-    const img = await loadImage(dataURL);
-    const maxDim = 800;
-    let w = img.width, h = img.height;
-    const ratio = Math.min(1, maxDim/Math.max(w,h));
-    w = Math.round(w*ratio); h = Math.round(h*ratio);
-    const c = document.createElement('canvas');
-    c.width = w; c.height = h;
+    // resize to save space
+    const img=await loadImg(State.finalComposite);
+    const maxDim=800;
+    const ratio=Math.min(1,maxDim/Math.max(img.width,img.height));
+    const w=Math.round(img.width*ratio);
+    const h=Math.round(img.height*ratio);
+    const c=document.createElement('canvas');
+    c.width=w; c.height=h;
     c.getContext('2d').drawImage(img,0,0,w,h);
-    const thumb = c.toDataURL('image/jpeg', 0.85);
+    const thumb=c.toDataURL('image/jpeg',0.85);
 
     gallery.unshift({
-      id: 'photo_' + Date.now(),
-      data: thumb,
-      date: new Date().toISOString(),
-      mode: State.currentMode,
-      filter: State.currentFilter
+      id:'p_'+Date.now(),
+      data:thumb,
+      date:new Date().toISOString(),
+      template:State.currentTemplate.name
     });
     saveGallery(gallery);
     toast('Tersimpan di Gallery ✓','success');
-  } catch(err){
+  }catch(err){
     console.error(err);
-    toast('Gagal menyimpan. Storage penuh?','error');
-  } finally {
+    toast('Gagal simpan','error');
+  }finally{
     setLoading(false);
   }
 });
 
 /* ============ PRINT ============ */
-$('#printBtn').addEventListener('click', async ()=>{
-  setLoading(true, 'Menyiapkan print...');
-  try {
-    const dataURL = await renderFinalComposite();
-    if(!dataURL){ toast('Tidak ada foto','error'); setLoading(false); return; }
-    const printArea = $('#printArea');
-    printArea.innerHTML = '';
-    printArea.className = 'active';
-    const img = document.createElement('img');
-    img.src = dataURL;
-    img.onload = ()=>{
-      setLoading(false);
-      setTimeout(()=>{
-        window.print();
-        setTimeout(()=>{ printArea.classList.remove('active'); }, 1000);
-      }, 300);
-    };
-    printArea.appendChild(img);
-  } catch(err){
-    console.error(err);
-    toast('Gagal print','error');
-    setLoading(false);
-  }
+$('#printBtn').addEventListener('click',()=>{
+  if(!State.finalComposite){ toast('Belum ada hasil','error'); return; }
+  const printArea=$('#printArea');
+  printArea.innerHTML='';
+  printArea.className='active';
+  const img=document.createElement('img');
+  img.src=State.finalComposite;
+  img.onload=()=>{
+    setTimeout(()=>{
+      window.print();
+      setTimeout(()=>printArea.classList.remove('active'),1000);
+    },300);
+  };
+  printArea.appendChild(img);
 });
 
-/* ============ GALLERY STORAGE ============ */
-const GALLERY_KEY = 'ag_gallery_v1';
-function getGallery() {
-  try { return JSON.parse(localStorage.getItem(GALLERY_KEY) || '[]'); }
-  catch(e){ return []; }
-}
-function saveGallery(g) {
-  try { localStorage.setItem(GALLERY_KEY, JSON.stringify(g)); }
-  catch(e){ toast('Storage penuh. Hapus beberapa foto.','error'); }
+/* ============ FILTER UI ============ */
+function renderFilterGrid(){
+  const container=$('#filterGrid');
+  const cat=$('#filterCats .fcat.active').dataset.cat;
+  const list=FILTERS.filter(f=>{
+    if(cat==='all') return f.id!=='none';
+    return f.cat===cat || f.id==='none';
+  });
+  container.innerHTML='';
+  list.forEach(f=>{
+    const item=document.createElement('div');
+    item.className='filter-item'+(f.id===State.currentFilter?' active':'');
+    item.dataset.fid=f.id;
+    const preview=document.createElement('div');
+    preview.className='fi-preview';
+    // render mini canvas preview using filter's canvas function on a gradient
+    renderFilterThumbnail(preview, f);
+    const name=document.createElement('div');
+    name.className='fi-name';
+    name.textContent=f.name;
+    const badge=document.createElement('div');
+    badge.className='fi-badge';
+    badge.textContent = f.id===State.currentFilter ? 'LIVE' : (f.cat==='vintage'?'V':f.cat==='aesthetic'?'A':'S');
+    item.appendChild(preview);
+    item.appendChild(badge);
+    item.appendChild(name);
+    item.addEventListener('click',()=>selectFilter(f.id));
+    container.appendChild(item);
+  });
 }
 
-function renderGallery() {
-  const content = $('#galleryContent');
-  const gallery = getGallery();
+/* Render filter thumbnail as a tiny canvas with the filter applied */
+function renderFilterThumbnail(container, filter){
+  const c=document.createElement('canvas');
+  c.width=120; c.height=120;
+  const ctx=c.getContext('2d');
+  // Create a mini "scene" — gradient + circle (like a portrait)
+  const grad=ctx.createLinearGradient(0,0,120,120);
+  grad.addColorStop(0,'#d4b89a');
+  grad.addColorStop(0.5,'#8a6a4a');
+  grad.addColorStop(1,'#3a2a1a');
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,120,120);
+  // face circle
+  ctx.fillStyle='#e8c9a8';
+  ctx.beginPath();
+  ctx.arc(60,55,28,0,Math.PI*2);
+  ctx.fill();
+  // eyes
+  ctx.fillStyle='#3a2a1a';
+  ctx.beginPath(); ctx.arc(50,50,3,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(70,50,3,0,Math.PI*2); ctx.fill();
+  // smile
+  ctx.strokeStyle='#8a5a3a';
+  ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(60,62,10,0.1,Math.PI-0.1); ctx.stroke();
+  // hair
+  ctx.fillStyle='#2a1a0a';
+  ctx.beginPath(); ctx.arc(60,40,30,Math.PI,0); ctx.fill();
+  // body
+  ctx.fillStyle='#a67a5a';
+  ctx.fillRect(30,80,60,40);
+  // apply filter via canvas fn
+  if(filter.canvas && filter.id!=='none'){
+    const imgData=ctx.getImageData(0,0,120,120);
+    filter.canvas(imgData.data);
+    ctx.putImageData(imgData,0,0);
+  }
+  container.appendChild(c);
+}
+
+function selectFilter(id){
+  State.currentFilter=id;
+  applyLiveFilter();
+  // update active state
+  $$('.filter-item').forEach(el=>{
+    el.classList.toggle('active',el.dataset.fid===id);
+    const b=el.querySelector('.fi-badge');
+    if(b) b.textContent = el.dataset.fid===id ? 'LIVE' : (FILTERS.find(f=>f.id===el.dataset.fid)?.cat==='vintage'?'V':FILTERS.find(f=>f.id===el.dataset.fid)?.cat==='aesthetic'?'A':'S');
+  });
+  const f=FILTERS.find(x=>x.id===id);
+  toast('Filter: '+(f?.name||id));
+}
+
+$$('#filterCats .fcat').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $$('#filterCats .fcat').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderFilterGrid();
+  });
+});
+
+$('#filterIntensity').addEventListener('input',e=>{
+  State.filterIntensity=parseInt(e.target.value);
+  $('#filterIntVal').textContent=State.filterIntensity+'%';
+  applyLiveFilter();
+});
+
+/* ============ ADJUST SLIDERS ============ */
+['brightness','contrast','saturation','warmth'].forEach(k=>{
+  const el=$('#'+k);
+  const labelMap={brightness:'brVal',contrast:'coVal',saturation:'saVal',warmth:'waVal'};
+  el.addEventListener('input',e=>{
+    State.adjustments[k]=parseInt(e.target.value);
+    $('#'+labelMap[k]).textContent=e.target.value;
+    applyLiveFilter();
+  });
+});
+$('#resetAdjustBtn').addEventListener('click',()=>{
+  State.adjustments={brightness:0,contrast:0,saturation:0,warmth:0};
+  ['brightness','contrast','saturation','warmth'].forEach(k=>$('#'+k).value=0);
+  const labelMap={brightness:'brVal',contrast:'coVal',saturation:'saVal',warmth:'waVal'};
+  Object.values(labelMap).forEach(id=>$('#'+id).textContent='0');
+  applyLiveFilter();
+  toast('Adjustment di-reset');
+});
+
+/* ============ RATIO ============ */
+$$('.ratio-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    $$('.ratio-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    State.ratio=btn.dataset.ratio;
+    $('#cameraViewport').dataset.ratio=btn.dataset.ratio;
+    toast('Rasio: '+btn.dataset.ratio);
+  });
+});
+
+/* ============ TEMPLATE UI ============ */
+function renderTemplateGrid(){
+  const grid=$('#templateGrid');
+  grid.innerHTML='';
+  TEMPLATES.forEach(tpl=>{
+    const card=document.createElement('button');
+    card.className='tpl-card'+(tpl.id===State.currentTemplate.id?' active':'');
+    const thumb=document.createElement('div');
+    thumb.className='tpl-thumb';
+    renderTemplateThumbnail(thumb, tpl);
+    const name=document.createElement('div');
+    name.className='tpl-name';
+    name.textContent=tpl.name;
+    const count=document.createElement('div');
+    count.className='tpl-count';
+    count.textContent=tpl.count+' foto';
+    card.appendChild(thumb);
+    card.appendChild(name);
+    card.appendChild(count);
+    card.addEventListener('click',()=>{
+      State.currentTemplate=tpl;
+      $$('.tpl-card').forEach(c=>c.classList.remove('active'));
+      card.classList.add('active');
+      toast('Template: '+tpl.name);
+    });
+    grid.appendChild(card);
+  });
+}
+
+/* Render a mini template preview showing the layout structure */
+function renderTemplateThumbnail(container, tpl){
+  const c=document.createElement('canvas');
+  const W=100;
+  // Compute H to match aspect ratio
+  const aspect = tpl.type==='strip' ? 0.4 : (tpl.type==='grid' ? 0.85 : 0.55);
+  const H=Math.round(W/aspect);
+  c.width=W; c.height=H;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle=tpl.bg;
+  ctx.fillRect(0,0,W,H);
+
+  const pad=W*0.08;
+  const gap=W*0.03;
+  const photoAR = {'4:3':4/3,'3:4':3/4,'1:1':1,'4:5':4/5}[State.ratio] || 4/3;
+
+  // Draw photo placeholders
+  const photoColor = tpl.bg==='#1a1a1a' ? '#444' : '#c9b8a5';
+  ctx.fillStyle=photoColor;
+
+  if(tpl.type==='strip'){
+    const photoW = W - pad*2;
+    const photoH = photoW / photoAR;
+    let y = pad;
+    for(let i=0;i<tpl.count;i++){
+      ctx.fillStyle = photoColor;
+      ctx.fillRect(pad, y, photoW, photoH);
+      y += photoH + gap;
+    }
+  } else if(tpl.type==='grid'){
+    const photoW = (W-pad*2-gap)/2;
+    const photoH = photoW/photoAR;
+    for(let i=0;i<4;i++){
+      const col=i%2,row=Math.floor(i/2);
+      ctx.fillStyle = photoColor;
+      ctx.fillRect(pad+col*(photoW+gap), pad+row*(photoH+gap), photoW, photoH);
+    }
+  } else if(tpl.type==='double'){
+    const photoW = (W-pad*2-gap*3)/2;
+    const photoH = photoW/photoAR;
+    for(let i=0;i<6;i++){
+      const col=i<3?0:1, row=i%3;
+      ctx.fillStyle = photoColor;
+      ctx.fillRect(pad+col*(photoW+gap*2), pad+row*(photoH+gap), photoW, photoH);
+    }
+  }
+
+  // Footer
+  ctx.fillStyle = tpl.accent || '#49372D';
+  ctx.globalAlpha=0.4;
+  ctx.fillRect(pad, H-pad*1.5, W-pad*2, 1);
+  ctx.globalAlpha=1;
+
+  container.appendChild(c);
+}
+
+/* ============ PANEL TABS ============ */
+$$('#panelTabs .panel-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    $$('#panelTabs .panel-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    const body=$('#boothPanelBody');
+    $$('.panel-view',body).forEach(v=>v.classList.remove('active'));
+    const view=body.querySelector(`[data-view="${tab.dataset.panel}"]`);
+    if(view) view.classList.add('active');
+  });
+});
+
+/* ============ GALLERY ============ */
+function renderGallery(){
+  const content=$('#galleryContent');
+  const gallery=getGallery();
   if(!gallery.length){
-    content.innerHTML = `
+    content.innerHTML=`
       <div class="empty-state">
-        <div class="empty-icon">📷</div>
+        <div class="empty-icon">🎞️</div>
         <div class="empty-title">Gallery masih kosong</div>
-        <div class="empty-desc">Ambil foto pertamamu dan simpan ke gallery untuk melihatnya di sini.</div>
+        <div class="empty-desc">Ambil photo session pertamamu dan simpan ke gallery.</div>
         <button class="btn btn-primary" onclick="showPage('booth')">Mulai Photo Booth</button>
-      </div>
-    `;
+      </div>`;
     return;
   }
-  const grid = document.createElement('div');
-  grid.className = 'gallery-grid';
+  const grid=document.createElement('div');
+  grid.className='gallery-grid';
   gallery.forEach(item=>{
-    const el = document.createElement('div');
-    el.className = 'gallery-item';
-    const d = new Date(item.date);
-    el.innerHTML = `
+    const el=document.createElement('div');
+    el.className='gallery-item';
+    const d=new Date(item.date);
+    el.innerHTML=`
       <img src="${item.data}" alt="Photo" loading="lazy">
       <div class="gi-actions">
         <button data-act="view" title="Lihat">👁</button>
         <button data-act="dl" title="Download">⬇</button>
         <button data-act="del" title="Hapus">✕</button>
       </div>
-      <div class="gi-date">${d.toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'})}</div>
+      <div class="gi-date">${d.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'})}</div>
     `;
-    el.querySelector('[data-act="view"]').addEventListener('click', e=>{
-      e.stopPropagation();
-      viewGalleryPhoto(item);
-    });
-    el.querySelector('[data-act="dl"]').addEventListener('click', e=>{
-      e.stopPropagation();
-      downloadGalleryPhoto(item);
-    });
-    el.querySelector('[data-act="del"]').addEventListener('click', e=>{
-      e.stopPropagation();
-      deleteGalleryPhoto(item.id);
-    });
-    el.addEventListener('click', ()=>viewGalleryPhoto(item));
+    el.querySelector('[data-act="view"]').addEventListener('click',e=>{e.stopPropagation();viewPhoto(item);});
+    el.querySelector('[data-act="dl"]').addEventListener('click',e=>{e.stopPropagation();downloadPhoto(item);});
+    el.querySelector('[data-act="del"]').addEventListener('click',e=>{e.stopPropagation();deletePhoto(item.id);});
+    el.addEventListener('click',()=>viewPhoto(item));
     grid.appendChild(el);
   });
-  content.innerHTML = '';
+  content.innerHTML='';
   content.appendChild(grid);
 }
 
-function viewGalleryPhoto(item) {
-  showModal('Preview Foto', `<img src="${item.data}" alt="Photo">`, [
-    { label:'⬇ Download', primary:true, onClick:()=>downloadGalleryPhoto(item) },
-    { label:'🖨 Print', onClick:()=>printGalleryPhoto(item) },
-    { label:'✕ Hapus', danger:true, onClick:()=>deleteGalleryPhoto(item.id, true) }
+function viewPhoto(item){
+  showModal('Preview',`<img src="${item.data}" alt="Photo">`,[
+    {label:'⬇ Download',primary:true,onClick:()=>downloadPhoto(item)},
+    {label:'🖨 Print',onClick:()=>printPhoto(item)},
+    {label:'✕ Hapus',danger:true,onClick:()=>deletePhoto(item.id,true)}
   ]);
 }
-function downloadGalleryPhoto(item) {
-  const a = document.createElement('a');
-  a.href = item.data;
-  const ts = new Date(item.date).toISOString().slice(0,19).replace(/[:T]/g,'-');
-  a.download = `afterglow_${ts}.jpg`;
+function downloadPhoto(item){
+  const a=document.createElement('a');
+  a.href=item.data;
+  const ts=new Date(item.date).toISOString().slice(0,19).replace(/[:T]/g,'-');
+  a.download=`afterglow_${ts}.jpg`;
   document.body.appendChild(a);
   a.click();
   a.remove();
   toast('Download dimulai ✓','success');
 }
-function printGalleryPhoto(item) {
-  const printArea = $('#printArea');
-  printArea.innerHTML = '';
-  printArea.className = 'active';
-  const img = document.createElement('img');
-  img.src = item.data;
-  img.onload = ()=>{
+function printPhoto(item){
+  const printArea=$('#printArea');
+  printArea.innerHTML='';
+  printArea.className='active';
+  const img=document.createElement('img');
+  img.src=item.data;
+  img.onload=()=>{
     setTimeout(()=>{
       window.print();
-      setTimeout(()=>printArea.classList.remove('active'), 1000);
-    }, 300);
+      setTimeout(()=>printArea.classList.remove('active'),1000);
+    },300);
   };
   printArea.appendChild(img);
 }
-function deleteGalleryPhoto(id, fromModal) {
-  if(!confirm('Hapus foto ini dari gallery?')) return;
-  const g = getGallery().filter(x=>x.id!==id);
-  saveGallery(g);
+function deletePhoto(id,fromModal){
+  if(!confirm('Hapus foto ini?')) return;
+  saveGallery(getGallery().filter(x=>x.id!==id));
   if(fromModal) closeModal();
   renderGallery();
   toast('Foto dihapus');
 }
-$('#clearGalleryBtn').addEventListener('click', ()=>{
-  if(!getGallery().length){ toast('Gallery sudah kosong'); return; }
-  if(confirm('Hapus SEMUA foto dari gallery? Tindakan ini tidak bisa dibatalkan.')){
+$('#clearGalleryBtn').addEventListener('click',()=>{
+  if(!getGallery().length){ toast('Gallery kosong'); return; }
+  if(confirm('Hapus SEMUA foto? Tidak bisa dibatalkan.')){
     saveGallery([]);
     renderGallery();
     toast('Semua foto dihapus');
@@ -2916,38 +2357,29 @@ $('#clearGalleryBtn').addEventListener('click', ()=>{
 });
 
 /* ============ MODAL ============ */
-function showModal(title, bodyHTML, actions) {
-  $('#modalTitle').textContent = title;
-  $('#modalBody').innerHTML = bodyHTML;
-  const foot = $('#modalFoot');
-  foot.innerHTML = '';
-  if(actions){
-    actions.forEach(a=>{
-      const btn = document.createElement('button');
-      btn.className = 'btn ' + (a.primary ? 'btn-primary' : a.danger ? 'btn-accent' : 'btn-ghost');
-      btn.textContent = a.label;
-      btn.addEventListener('click', a.onClick);
-      foot.appendChild(btn);
-    });
-  }
+function showModal(title,html,actions){
+  $('#modalTitle').textContent=title;
+  $('#modalBody').innerHTML=html;
+  const foot=$('#modalFoot');
+  foot.innerHTML='';
+  if(actions) actions.forEach(a=>{
+    const b=document.createElement('button');
+    b.className='btn '+(a.primary?'btn-primary':a.danger?'btn-accent':'btn-ghost');
+    b.textContent=a.label;
+    b.addEventListener('click',a.onClick);
+    foot.appendChild(b);
+  });
   $('#modalOverlay').classList.add('show');
 }
 function closeModal(){ $('#modalOverlay').classList.remove('show'); }
-$('#modalClose').addEventListener('click', closeModal);
-$('#modalOverlay').addEventListener('click', e=>{
-  if(e.target.id==='modalOverlay') closeModal();
-});
+$('#modalClose').addEventListener('click',closeModal);
+$('#modalOverlay').addEventListener('click',e=>{ if(e.target.id==='modalOverlay') closeModal(); });
 
 /* ============ INIT ============ */
-function init() {
-  renderHomeFilterPreview();
-  renderFilterGrid('filterGrid', State.currentFilter, onBoothFilterSelect);
-  renderFrameGrid('frameGrid', State.currentFrame, onBoothFrameSelect);
-  renderFrameColors('frameColors', State.frameColor, (c)=>{ State.frameColor = c; });
-  renderStickerGrid('face');
-  // Set default countdown
-  $('#countdownSelect').value = '3';
-  // Preload fonts via document.fonts if available
+function init(){
+  renderTemplateGrid();
+  renderFilterGrid();
+  applyLiveFilter();
   if(document.fonts && document.fonts.load){
     document.fonts.load('italic 48px Caveat');
     document.fonts.load('700 48px "Playfair Display"');
@@ -2955,29 +2387,9 @@ function init() {
 }
 init();
 
-// Ensure resize redraws editor
-let resizeTimer;
-window.addEventListener('resize', ()=>{
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(()=>{
-    if(State.page==='editor') drawEditorCanvas();
-  }, 200);
-});
-
-// Cleanup camera on unload
-window.addEventListener('beforeunload', ()=>{
-  if(State.cameraStream) State.cameraStream.getTracks().forEach(t=>t.stop());
-});
-
-// Global error handler for camera
-window.addEventListener('error', (e)=>{
-  console.error('Global error:', e.error);
-});
-
-/* ============ EXPORT GLOBAL (for inline handlers) ============ */
-window.showPage = showPage;
-window.showToast = toast;
-
+window.showPage=showPage;
+window.showToast=toast;
+window.closeModal=closeModal;
 </script>
 </body>
   </html>
